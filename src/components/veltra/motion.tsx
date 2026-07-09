@@ -77,6 +77,8 @@ export function StaggerItem({
   return (
     <motion.div
       className={className}
+      initial="hidden"
+      animate="visible"
       variants={{
         hidden: { opacity: 0, y },
         visible: {

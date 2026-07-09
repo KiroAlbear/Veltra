@@ -958,8 +958,7 @@ export function DocumentsScreen() {
         <StaggerGroup>
           <Card className="veltra-shadow border-0 bg-card/50 backdrop-blur-sm overflow-hidden">
             {documents.map((doc, idx) => (
-              <StaggerItem key={doc.id}>
-                <div className={cn("flex items-center gap-4 px-6 py-4 veltra-transition hover:bg-foreground/[0.03]", idx !== documents.length - 1 && "border-b border-border/40")}>
+              <div key={doc.id} className={cn("flex items-center gap-4 px-6 py-4 veltra-transition hover:bg-foreground/[0.03]", idx !== documents.length - 1 && "border-b border-border/40")}>
                   <div className="flex-shrink-0 h-10 w-10 rounded-lg bg-foreground/[0.05] flex items-center justify-center text-lg">
                     {DOC_TYPE_ICON[doc.type]}
                   </div>
@@ -969,8 +968,7 @@ export function DocumentsScreen() {
                   </button>
                   <span className="text-caption text-muted-foreground tabular flex-shrink-0">{doc.size}</span>
                   <Badge variant="outline" className="text-micro font-medium border bg-foreground/[0.05] text-muted-foreground normal-case tracking-normal">{doc.type.replace("-", " ")}</Badge>
-                </div>
-              </StaggerItem>
+              </div>
             ))}
           </Card>
         </StaggerGroup>
