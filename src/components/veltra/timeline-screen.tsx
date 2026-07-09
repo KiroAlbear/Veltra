@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
 import {
   ArrowLeft,
@@ -32,7 +33,7 @@ import {
   Printer,
 } from "lucide-react";
 import { formatDate, formatRelativeTime } from "@/lib/veltra-store";
-import { FadeIn, StaggerGroup, StaggerItem } from "./motion";
+import { FadeIn, StaggerGroup } from "./motion";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { VeltraPrintLayout } from "./print-layout";
@@ -113,6 +114,8 @@ export function TimelineScreen() {
   const [rxOpen, setRxOpen] = useState(false);
   const [vitalsOpen, setVitalsOpen] = useState(false);
   const [voiceOpen, setVoiceOpen] = useState(false);
+  const [noteOpen, setNoteOpen] = useState(false);
+  const [noteText, setNoteText] = useState("");
   const [rxForm, setRxForm] = useState({ medication: "", dosage: "", frequency: "", duration: "", notes: "" });
   const [rxAlerts, setRxAlerts] = useState<SafetyAlert[]>([]);
   const [rxChecking, setRxChecking] = useState(false);
@@ -164,6 +167,19 @@ export function TimelineScreen() {
 
   // Compute Health Score — pure function, real data
   const healthScore = computeHealthScore(patient, patientLabs, patientVitals, appointments);
+
+  const handleAddNote = () => {
+    const note = noteText.trim();
+    if (!note) {
+      toast({ title: "Note is empty", description: "Write a note before adding it to the timeline.", variant: "destructive" });
+      return;
+    }
+
+    addPatientNote(patient.id, note);
+    setNoteText("");
+    setNoteOpen(false);
+    toast({ title: "Note added", description: "Clinical note saved to timeline" });
+  };
 
   return (
     <div className="min-h-screen veltra-ambient">
@@ -398,11 +414,7 @@ export function TimelineScreen() {
             <h2 className="text-title text-foreground">Timeline</h2>
             <div className="flex items-center gap-3">
               <button
-                onClick={() => {
-                  // Quick note: use a simple approach — add a generic note
-    addPatientNote(patient.id, "Clinical note added via quick action");
-    toast({ title: "Note added ✓", description: "Quick note saved to timeline" });
-                }}
+                onClick={() => setNoteOpen(true)}
                 className="text-micro text-muted-foreground hover:text-foreground veltra-transition flex items-center gap-1"
               >
                 <StickyNote className="h-3 w-3" />
@@ -422,8 +434,7 @@ export function TimelineScreen() {
                   const cfg = EVENT_CONFIG[event.type];
                   const Icon = cfg.icon;
                   return (
-                    <StaggerItem key={event.id}>
-                      <li className="relative flex gap-4">
+                    <li key={event.id} className="relative flex gap-4">
                         <div className={cn("relative z-10 h-10 w-10 rounded-full flex items-center justify-center flex-shrink-0 border-2 border-background", cfg.tint)}>
                           <Icon className="h-4 w-4" />
                         </div>
@@ -441,8 +452,7 @@ export function TimelineScreen() {
                             {event.actor} · {formatRelativeTime(event.timestamp)}
                           </p>
                         </div>
-                      </li>
-                    </StaggerItem>
+                    </li>
                   );
                 })}
               </ol>
@@ -889,6 +899,37 @@ export function TimelineScreen() {
                     Transcript will be auto-generated on save
                   </p>
                 )}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* ===== Add Note Dialog ===== */}
+        {noteOpen && (
+          <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-6" onClick={() => setNoteOpen(false)}>
+            <div className="bg-card/95 backdrop-blur-2xl rounded-2xl veltra-shadow-lg max-w-md w-full p-6 border border-border/40" onClick={(e) => e.stopPropagation()}>
+              <div className="flex items-center justify-between mb-5">
+                <h3 className="text-title text-foreground flex items-center gap-2">
+                  <StickyNote className="h-4 w-4 text-slate-400" /> Add Note
+                </h3>
+                <button onClick={() => setNoteOpen(false)} className="text-muted-foreground hover:text-foreground" aria-label="Close dialog"><X className="h-4 w-4" /></button>
+              </div>
+              <div>
+                <Label htmlFor="timeline-note" className="text-micro text-muted-foreground">Clinical note</Label>
+                <Textarea
+                  id="timeline-note"
+                  value={noteText}
+                  onChange={(e) => setNoteText(e.target.value)}
+                  placeholder="Write the note to add to this patient's timeline..."
+                  className="mt-1 min-h-32 resize-none"
+                  autoFocus
+                />
+              </div>
+              <div className="flex gap-2 mt-5">
+                <Button variant="ghost" onClick={() => setNoteOpen(false)} className="flex-1 h-10">Cancel</Button>
+                <Button onClick={handleAddNote} className="flex-1 h-10 bg-veltra-emerald hover:bg-veltra-emerald-dark text-white" disabled={!noteText.trim()}>
+                  Add note
+                </Button>
               </div>
             </div>
           </div>
