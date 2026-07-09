@@ -1,0 +1,22 @@
+{
+  "/_global-error/page": "app/_global-error/page.js",
+  "/_not-found/page": "app/_not-found/page.js",
+  "/api/appointments/route": "app/api/appointments/route.js",
+  "/api/auth/login/route": "app/api/auth/login/route.js",
+  "/api/auth/signup/route": "app/api/auth/signup/route.js",
+  "/api/billing/checkout/route": "app/api/billing/checkout/route.js",
+  "/api/billing/webhook/route": "app/api/billing/webhook/route.js",
+  "/api/export/route": "app/api/export/route.js",
+  "/api/health/route": "app/api/health/route.js",
+  "/api/intake/route": "app/api/intake/route.js",
+  "/api/patients/route": "app/api/patients/route.js",
+  "/api/route": "app/api/route.js",
+  "/api/voice-notes/route": "app/api/voice-notes/route.js",
+  "/api/whatsapp/send/route": "app/api/whatsapp/send/route.js",
+  "/constitution/page": "app/constitution/page.js",
+  "/page": "app/page.js",
+  "/robots.txt/route": "app/robots.txt/route.js",
+  "/security/page": "app/security/page.js",
+  "/signup/page": "app/signup/page.js",
+  "/sitemap.xml/route": "app/sitemap.xml/route.js"
+}

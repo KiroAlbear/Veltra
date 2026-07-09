@@ -1,0 +1,3 @@
+module.exports=[81236,a=>{"use strict";function b({children:a}){return a}a.s(["default",()=>b,"metadata",0,{title:"Security & Compliance — Veltra",description:"HIPAA, GDPR, NPHIES, PDPL compliant. Encryption at rest and in transit. Audit logging, role-based access, and data residency for healthcare clinics.",openGraph:{title:"Security & Compliance — Veltra",description:"Your patients trust you. We protect that trust."}}])}];
+
+//# sourceMappingURL=src_app_security_layout_tsx_2e0bd62b._.js.map

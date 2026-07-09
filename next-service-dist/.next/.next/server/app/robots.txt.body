@@ -1,0 +1,6 @@
+User-Agent: *
+Allow: /
+Disallow: /api/
+
+Host: https://veltrahealth.co
+Sitemap: https://veltrahealth.co/sitemap.xml

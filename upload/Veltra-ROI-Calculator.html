@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>Recovered Revenue — Veltra</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; }
+:root {
+  --c-bg: #0A0A0A;
+  --c-bg-2: #141414;
+  --c-bg-3: #1C1B17;
+  --c-text: #F5F1EA;
+  --c-text-2: #A39C8E;
+  --c-text-3: #6B6558;
+  --c-accent: #D4A574;
+  --c-accent-2: #8B6B3D;
+  --c-rule: #2A2823;
+  --c-good: #7FA67F;
+  --c-mono: 'JetBrains Mono', 'Liberation Mono', monospace;
+}
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--c-bg);
+  color: var(--c-text);
+  font-family: 'Inter', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+
+.page {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 80px 32px 120px;
+}
+
+/* ===== Header ===== */
+.eyebrow {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.32em;
+  color: var(--c-accent);
+  text-transform: uppercase;
+  margin: 0 0 20px;
+}
+h1 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 400;
+  font-size: 64px;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  margin: 0 0 24px;
+  color: var(--c-text);
+}
+h1 em {
+  font-style: italic;
+  color: var(--c-accent);
+}
+.subtitle {
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 1.55;
+  color: var(--c-text-2);
+  margin: 0 0 60px;
+  max-width: 540px;
+}
+
+/* ===== Layout ===== */
+.calculator {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 48px;
+  align-items: start;
+}
+@media (max-width: 820px) {
+  .calculator {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+}
+
+/* ===== Inputs ===== */
+.inputs {
+  background: var(--c-bg-2);
+  padding: 32px;
+  border-top: 1px solid var(--c-accent);
+}
+.inputs-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  color: var(--c-text-3);
+  text-transform: uppercase;
+  margin-bottom: 24px;
+}
+.field {
+  margin-bottom: 24px;
+}
+.field:last-child { margin-bottom: 0; }
+.field-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 8px;
+}
+.field-name {
+  font-size: 14px;
+  color: var(--c-text);
+  font-weight: 400;
+}
+.field-value {
+  font-family: 'JetBrains Mono', 'Liberation Mono', monospace;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--c-accent);
+}
+.field-input {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.field-input input[type="range"] {
+  flex: 1;
+  -webkit-appearance: none;
+  appearance: none;
+  height: 2px;
+  background: var(--c-rule);
+  outline: none;
+  border-radius: 0;
+}
+.field-input input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--c-accent);
+  cursor: pointer;
+  border: 3px solid var(--c-bg-2);
+  box-shadow: 0 0 0 1px var(--c-accent);
+}
+.field-input input[type="range"]::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--c-accent);
+  cursor: pointer;
+  border: 3px solid var(--c-bg-2);
+  box-shadow: 0 0 0 1px var(--c-accent);
+}
+.field-input input[type="number"] {
+  flex: 1;
+  background: var(--c-bg-3);
+  border: 1px solid var(--c-rule);
+  color: var(--c-text);
+  font-family: 'JetBrains Mono', 'Liberation Mono', monospace;
+  font-size: 14px;
+  padding: 8px 12px;
+  outline: none;
+  border-radius: 0;
+}
+.field-input input[type="number"]:focus {
+  border-color: var(--c-accent);
+}
+.field-suffix {
+  font-family: 'JetBrains Mono', 'Liberation Mono', monospace;
+  font-size: 12px;
+  color: var(--c-text-3);
+  min-width: 32px;
+  text-align: right;
+}
+
+/* ===== Results ===== */
+.results {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.result-card {
+  padding: 28px 0;
+  border-bottom: 1px solid var(--c-rule);
+}
+.result-card:first-child {
+  border-top: 1px solid var(--c-accent);
+}
+.result-label {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  color: var(--c-text-3);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.result-value {
+  font-family: 'JetBrains Mono', 'Liberation Mono', monospace;
+  font-size: 28px;
+  font-weight: 500;
+  color: var(--c-text);
+  letter-spacing: -0.01em;
+}
+.result-detail {
+  font-size: 13px;
+  color: var(--c-text-2);
+  margin-top: 6px;
+  line-height: 1.5;
+}
+
+.result-total {
+  padding: 36px 0 28px;
+  border-bottom: none;
+  border-top: 1px solid var(--c-accent);
+  margin-top: 8px;
+}
+.result-total .result-label {
+  color: var(--c-accent);
+}
+.result-total .result-value {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 56px;
+  color: var(--c-text);
+  letter-spacing: -0.02em;
+  font-weight: 400;
+}
+
+/* ===== Footnote ===== */
+.footnote {
+  margin-top: 60px;
+  padding-top: 32px;
+  border-top: 1px solid var(--c-rule);
+  font-size: 12px;
+  line-height: 1.7;
+  color: var(--c-text-3);
+  max-width: 720px;
+}
+.footnote em {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  color: var(--c-text-2);
+}
+.footnote strong {
+  color: var(--c-text-2);
+  font-weight: 500;
+}
+
+/* ===== CTA ===== */
+.cta {
+  margin-top: 48px;
+  display: inline-block;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--c-accent);
+  text-decoration: none;
+  letter-spacing: -0.005em;
+  padding-bottom: 4px;
+  border-bottom: 1px solid var(--c-accent);
+}
+</style>
+</head>
+<body>
+
+<main class="page">
+  <p class="eyebrow">Recovered Revenue</p>
+  <h1>What you <em>recover.</em></h1>
+  <p class="subtitle">
+    Not what you save. Not what you optimize. What Veltra recovers — the revenue your clinic is losing right now, every month, to no-shows and missed calls. Move the sliders. See the number.
+  </p>
+
+  <div class="calculator">
+    <!-- ===== INPUTS ===== -->
+    <div class="inputs">
+      <p class="inputs-label">Enter your numbers</p>
+
+      <div class="field">
+        <div class="field-label">
+          <span class="field-name">Doctors in the clinic</span>
+          <span class="field-value" id="doctors-val">3</span>
+        </div>
+        <div class="field-input">
+          <input type="range" id="doctors" min="1" max="20" value="3" step="1">
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="field-label">
+          <span class="field-name">Average appointment value</span>
+          <span class="field-value">$<span id="appt-val">350</span></span>
+        </div>
+        <div class="field-input">
+          <input type="number" id="appt" min="50" max="2000" value="350" step="10">
+          <span class="field-suffix">USD</span>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="field-label">
+          <span class="field-name">No-show rate</span>
+          <span class="field-value"><span id="noshow-val">12</span>%</span>
+        </div>
+        <div class="field-input">
+          <input type="range" id="noshow" min="0" max="40" value="12" step="1">
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="field-label">
+          <span class="field-name">Missed calls per month</span>
+          <span class="field-value" id="missed-val">40</span>
+        </div>
+        <div class="field-input">
+          <input type="range" id="missed" min="0" max="200" value="40" step="5">
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== RESULTS ===== -->
+    <div class="results">
+      <div class="result-card">
+        <p class="result-label">From no-shows</p>
+        <p class="result-value" id="noshow-recovery">$2,520</p>
+        <p class="result-detail">Assumes 20 working days/month. Veltra reduces no-shows via pattern-aware reminders, waitlist auto-fill, and reschedule nudges — not by chasing patients.</p>
+      </div>
+
+      <div class="result-card">
+        <p class="result-label">From missed calls</p>
+        <p class="result-value" id="missed-recovery">$5,600</p>
+        <p class="result-detail">Assumes 40% of missed calls convert to appointments when answered within 5 minutes. Veltra answers in 0 seconds, every time, in the patient's preferred language.</p>
+      </div>
+
+      <div class="result-card result-total">
+        <p class="result-label">Estimated monthly recovery</p>
+        <p class="result-value" id="total-recovery">$8,120</p>
+        <p class="result-detail">Recovered revenue, not generated revenue. This is money the clinic has already earned but is currently losing.</p>
+      </div>
+    </div>
+  </div>
+
+  <p class="footnote">
+    <strong>How we compute this.</strong> No-show recovery = <em>doctors × 20 working days × no-show rate × appointment value</em>. We assume Veltra eliminates the no-show pattern entirely through Memory (90-day pattern detection, structural vs. random classification, and proactive reschedule). This is the upper bound. Real-world recovery is typically 60–80% of this number in the first 90 days, and approaches 100% by month six as Memory deepens.<br><br>
+    Missed-call recovery = <em>missed calls × appointment value × 0.4</em>. The 0.4 factor reflects industry data: 40% of patients whose call is answered within 5 minutes will book an appointment. Calls answered after 5 minutes drop to 12%. Veltra answers in 0 seconds.<br><br>
+    <strong>This is an estimate, not a promise.</strong> Your actual recovery depends on your clinic's patterns, your patient demographics, and how completely your staff adopts Veltra. We will not market this calculator's number back to you as a guaranteed outcome. We will, however, measure it with you in the first 90 days — together.
+  </p>
+
+  <a class="cta" href="#join">→ See how Veltra recovers it</a>
+</main>
+
+<script>
+  // ===== Elements =====
+  const doctors = document.getElementById('doctors');
+  const appt = document.getElementById('appt');
+  const noshow = document.getElementById('noshow');
+  const missed = document.getElementById('missed');
+
+  const doctorsVal = document.getElementById('doctors-val');
+  const apptVal = document.getElementById('appt-val');
+  const noshowVal = document.getElementById('noshow-val');
+  const missedVal = document.getElementById('missed-val');
+
+  const noshowRecovery = document.getElementById('noshow-recovery');
+  const missedRecovery = document.getElementById('missed-recovery');
+  const totalRecovery = document.getElementById('total-recovery');
+
+  const fmt = (n) => '$' + Math.round(n).toLocaleString('en-US');
+
+  // ===== Formula =====
+  // No-show recovery: doctors × 20 days × no-show rate × appt value
+  //   (Veltra eliminates the structural no-show pattern)
+  // Missed call recovery: missed × appt value × 0.4
+  //   (40% of calls answered <5 min convert to bookings)
+  function compute() {
+    const d = parseInt(doctors.value) || 0;
+    const a = Math.max(0, parseFloat(appt.value) || 0);
+    const n = parseFloat(noshow.value) || 0;
+    const m = parseInt(missed.value) || 0;
+
+    const noShowRec = d * 20 * (n / 100) * a;
+    const missedRec = m * a * 0.4;
+    const total = noShowRec + missedRec;
+
+    doctorsVal.textContent = d;
+    apptVal.textContent = a;
+    noshowVal.textContent = n;
+    missedVal.textContent = m;
+
+    noshowRecovery.textContent = fmt(noShowRec);
+    missedRecovery.textContent = fmt(missedRec);
+    totalRecovery.textContent = fmt(total);
+  }
+
+  // ===== Bind =====
+  [doctors, appt, noshow, missed].forEach(el => {
+    el.addEventListener('input', compute);
+    el.addEventListener('change', compute);
+  });
+
+  // ===== Init =====
+  compute();
+</script>
+
+</body>
+</html>

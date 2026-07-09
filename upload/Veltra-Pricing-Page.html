@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>Pricing — Veltra</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; }
+:root {
+  --c-bg: #0A0A0A;
+  --c-bg-2: #141414;
+  --c-bg-3: #1C1B17;
+  --c-text: #F5F1EA;
+  --c-text-2: #A39C8E;
+  --c-text-3: #6B6558;
+  --c-accent: #D4A574;
+  --c-accent-2: #8B6B3D;
+  --c-rule: #2A2823;
+  --c-good: #7FA67F;
+  --c-mono: 'JetBrains Mono', 'Liberation Mono', monospace;
+}
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--c-bg);
+  color: var(--c-text);
+  font-family: 'Inter', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+
+.page {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 80px 32px 120px;
+}
+
+/* ===== Header ===== */
+.eyebrow {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.32em;
+  color: var(--c-accent);
+  text-transform: uppercase;
+  margin: 0 0 20px;
+}
+h1 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 400;
+  font-size: 72px;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  margin: 0 0 24px;
+  color: var(--c-text);
+}
+h1 em { font-style: italic; color: var(--c-accent); }
+.subtitle {
+  font-size: 19px;
+  font-weight: 300;
+  line-height: 1.55;
+  color: var(--c-text-2);
+  margin: 0 0 48px;
+  max-width: 600px;
+}
+
+/* ===== Billing toggle ===== */
+.toggle {
+  display: inline-flex;
+  background: var(--c-bg-2);
+  padding: 4px;
+  border: 1px solid var(--c-rule);
+  margin-bottom: 60px;
+}
+.toggle button {
+  background: transparent;
+  border: 0;
+  color: var(--c-text-2);
+  font-family: "Inter", "Helvetica Neue", sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  padding: 10px 24px;
+  cursor: pointer;
+  transition: color 0.2s ease, background 0.2s ease;
+}
+.toggle button.active {
+  background: var(--c-accent);
+  color: var(--c-bg);
+}
+.toggle .save {
+  font-size: 10px;
+  color: var(--c-text-3);
+  margin-left: 6px;
+  letter-spacing: 0.1em;
+}
+.toggle button.active .save { color: var(--c-bg); opacity: 0.6; }
+
+/* ===== Plans grid ===== */
+.plans {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border-top: 1px solid var(--c-accent);
+  border-bottom: 1px solid var(--c-rule);
+}
+@media (max-width: 880px) {
+  .plans { grid-template-columns: 1fr; }
+}
+
+.plan {
+  padding: 40px 32px 36px;
+  border-right: 1px solid var(--c-rule);
+  display: flex;
+  flex-direction: column;
+}
+.plan:last-child { border-right: 0; }
+@media (max-width: 880px) {
+  .plan { border-right: 0; border-bottom: 1px solid var(--c-rule); }
+  .plan:last-child { border-bottom: 0; }
+}
+
+.plan.featured {
+  background: var(--c-bg-2);
+  position: relative;
+}
+.plan-tag {
+  position: absolute;
+  top: 0;
+  left: 32px;
+  background: var(--c-accent);
+  color: var(--c-bg);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  padding: 4px 10px;
+  text-transform: uppercase;
+}
+
+.plan-name {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  color: var(--c-text-2);
+  text-transform: uppercase;
+  margin: 0 0 24px;
+}
+.plan-desc {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 17px;
+  line-height: 1.4;
+  color: var(--c-text);
+  margin: 0 0 32px;
+  min-height: 48px;
+}
+
+.plan-price {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+.plan-price-value {
+  font-family: 'Playfair Display', serif;
+  font-size: 56px;
+  font-weight: 400;
+  color: var(--c-text);
+  letter-spacing: -0.02em;
+}
+.plan-price-suffix {
+  font-size: 13px;
+  color: var(--c-text-3);
+  letter-spacing: 0.05em;
+}
+.plan-impl {
+  font-size: 12px;
+  color: var(--c-text-3);
+  margin-bottom: 32px;
+  letter-spacing: 0.02em;
+}
+.plan-impl strong {
+  color: var(--c-text-2);
+  font-weight: 500;
+}
+
+.plan-features {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 32px;
+  flex: 1;
+}
+.plan-features li {
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: var(--c-text);
+  padding: 8px 0;
+  border-bottom: 1px solid var(--c-rule);
+  display: flex;
+  gap: 12px;
+  align-items: baseline;
+}
+.plan-features li::before {
+  content: "·";
+  color: var(--c-accent);
+  font-size: 18px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+.plan-features li.muted {
+  color: var(--c-text-3);
+}
+.plan-features li.muted::before {
+  color: var(--c-text-3);
+}
+
+.plan-cta {
+  display: block;
+  text-align: center;
+  background: transparent;
+  border: 1px solid var(--c-accent);
+  color: var(--c-accent);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  padding: 14px 20px;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+.plan-cta:hover {
+  background: var(--c-accent);
+  color: var(--c-bg);
+}
+.plan.featured .plan-cta {
+  background: var(--c-accent);
+  color: var(--c-bg);
+}
+.plan.featured .plan-cta:hover {
+  background: var(--c-text);
+  border-color: var(--c-text);
+}
+
+/* ===== Comparison table ===== */
+.compare {
+  margin-top: 100px;
+}
+.compare-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 36px;
+  font-weight: 400;
+  color: var(--c-text);
+  letter-spacing: -0.02em;
+  margin: 0 0 12px;
+}
+.compare-sub {
+  font-size: 15px;
+  color: var(--c-text-2);
+  margin: 0 0 40px;
+  max-width: 540px;
+  line-height: 1.55;
+}
+.compare-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13.5px;
+}
+.compare-table th, .compare-table td {
+  text-align: left;
+  padding: 16px 12px;
+  border-bottom: 1px solid var(--c-rule);
+  vertical-align: top;
+}
+.compare-table th {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  color: var(--c-text-3);
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--c-accent);
+  padding-top: 0;
+}
+.compare-table td:not(:first-child) {
+  text-align: center;
+  font-family: 'JetBrains Mono', 'Liberation Mono', monospace;
+  font-size: 13px;
+  color: var(--c-text);
+}
+.compare-table td:first-child {
+  color: var(--c-text-2);
+  font-weight: 400;
+  max-width: 280px;
+}
+.compare-table tr.group td {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  color: var(--c-accent);
+  font-size: 14px;
+  padding-top: 28px;
+  padding-bottom: 8px;
+  border-bottom: 0;
+  text-align: left;
+}
+.check { color: var(--c-accent); }
+.dash { color: var(--c-text-3); }
+
+/* ===== Footnote ===== */
+.footnote {
+  margin-top: 60px;
+  padding-top: 32px;
+  border-top: 1px solid var(--c-rule);
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--c-text-3);
+  max-width: 760px;
+}
+.footnote em {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  color: var(--c-text-2);
+}
+</style>
+</head>
+<body>
+
+<main class="page">
+  <p class="eyebrow">Pricing</p>
+  <h1>Three sizes. <em>One promise.</em></h1>
+  <p class="subtitle">
+    Veltra is priced by what the clinic needs, not by what it can be charged. Every plan includes Memory. Every plan includes the Chief of Staff. The difference is scale.
+  </p>
+
+  <!-- ===== Toggle ===== -->
+  <div class="toggle" role="tablist">
+    <button class="active" data-billing="monthly">Monthly</button>
+    <button data-billing="annual">Annual <span class="save">— 2 months free</span></button>
+  </div>
+
+  <!-- ===== Plans ===== -->
+  <div class="plans">
+    <!-- CLINIC -->
+    <div class="plan">
+      <p class="plan-name">Clinic</p>
+      <p class="plan-desc">For small clinics.<br>One location. 1–3 doctors.</p>
+      <div class="plan-price">
+        <span class="plan-price-value" data-monthly="399" data-annual="333">$399</span>
+        <span class="plan-price-suffix">/ month</span>
+      </div>
+      <p class="plan-impl">Implementation: <strong>$5,000</strong> one-time</p>
+      <ul class="plan-features">
+        <li>Unlimited appointments</li>
+        <li>Patient records</li>
+        <li>WhatsApp integration</li>
+        <li>Automated reminders</li>
+        <li>Memory (single clinic)</li>
+        <li>Email support</li>
+      </ul>
+      <a class="plan-cta" href="#start">Start with Veltra</a>
+    </div>
+
+    <!-- GROUP -->
+    <div class="plan featured">
+      <span class="plan-tag">Most chosen</span>
+      <p class="plan-name">Group</p>
+      <p class="plan-desc">For growing practices.<br>Multiple locations. 4–20 doctors.</p>
+      <div class="plan-price">
+        <span class="plan-price-value" data-monthly="699" data-annual="583">$699</span>
+        <span class="plan-price-suffix">/ month</span>
+      </div>
+      <p class="plan-impl">Implementation: <strong>$7,500</strong> one-time</p>
+      <ul class="plan-features">
+        <li>Everything in Clinic</li>
+        <li>Multi-location support</li>
+        <li>Call handling</li>
+        <li>Smart scheduling</li>
+        <li>Recovered Revenue analytics</li>
+        <li>Priority support</li>
+      </ul>
+      <a class="plan-cta" href="#start">Start with Veltra</a>
+    </div>
+
+    <!-- NETWORK -->
+    <div class="plan">
+      <p class="plan-name">Network</p>
+      <p class="plan-desc">For healthcare organizations.<br>Enterprise scale. Unlimited.</p>
+      <div class="plan-price">
+        <span class="plan-price-value" data-monthly="Custom" data-annual="Custom">Custom</span>
+      </div>
+      <p class="plan-impl">Implementation: <strong>scoped per project</strong></p>
+      <ul class="plan-features">
+        <li>Everything in Group</li>
+        <li>Unlimited locations</li>
+        <li>Custom integrations</li>
+        <li>Network Memory (collective)</li>
+        <li>Dedicated account manager</li>
+        <li>SLA guarantee</li>
+        <li>On-site training</li>
+      </ul>
+      <a class="plan-cta" href="#start">Let's talk</a>
+    </div>
+  </div>
+
+  <!-- ===== Comparison ===== -->
+  <div class="compare">
+    <h2 class="compare-title">Compare, in detail.</h2>
+    <p class="compare-sub">Not against competitors. Against your own scale. Every row below is included from the plan it lists upward. Nothing is hidden behind a "Contact us."</p>
+
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th>What's included</th>
+          <th>Clinic</th>
+          <th>Group</th>
+          <th>Network</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="group"><td colspan="4">The role</td></tr>
+        <tr><td>Chief of Staff (morning brief, end-of-day summary)</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td></tr>
+        <tr><td>Memory (single clinic)</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td></tr>
+        <tr><td>Network Memory (collective patterns across clinics)</td><td class="dash">—</td><td class="dash">—</td><td class="check">✓</td></tr>
+        <tr><td>Accountability (every recommendation traceable)</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td></tr>
+
+        <tr class="group"><td colspan="4">Operations</td></tr>
+        <tr><td>Appointments — unlimited</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td></tr>
+        <tr><td>Patient records</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td></tr>
+        <tr><td>WhatsApp integration</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td></tr>
+        <tr><td>Call handling (inbound, 24/7)</td><td class="dash">—</td><td class="check">✓</td><td class="check">✓</td></tr>
+        <tr><td>Smart scheduling (pattern-aware)</td><td class="dash">—</td><td class="check">✓</td><td class="check">✓</td></tr>
+        <tr><td>Billing &amp; insurance claims</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td></tr>
+        <tr><td>Recovered Revenue analytics</td><td class="dash">—</td><td class="check">✓</td><td class="check">✓</td></tr>
+
+        <tr class="group"><td colspan="4">Scale</td></tr>
+        <tr><td>Locations</td><td>1</td><td>Up to 5</td><td>Unlimited</td></tr>
+        <tr><td>Doctors</td><td>1–3</td><td>4–20</td><td>Unlimited</td></tr>
+        <tr><td>Custom integrations (NPHIES, labs, etc.)</td><td class="dash">—</td><td class="dash">—</td><td class="check">✓</td></tr>
+
+        <tr class="group"><td colspan="4">Support</td></tr>
+        <tr><td>Email support</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td></tr>
+        <tr><td>Priority support (same-day)</td><td class="dash">—</td><td class="check">✓</td><td class="check">✓</td></tr>
+        <tr><td>Dedicated account manager</td><td class="dash">—</td><td class="dash">—</td><td class="check">✓</td></tr>
+        <tr><td>SLA guarantee</td><td class="dash">—</td><td class="dash">—</td><td class="check">✓</td></tr>
+        <tr><td>On-site training</td><td class="dash">—</td><td class="dash">—</td><td class="check">✓</td></tr>
+
+        <tr class="group"><td colspan="4">Trust &amp; compliance</td></tr>
+        <tr><td>HIPAA-ready · SOC 2 · PDPL</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td></tr>
+        <tr><td>End-to-end encryption</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td></tr>
+        <tr><td>Audit logging (7-year retention)</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td></tr>
+        <tr><td>Deletion (PDPL Article 18) — honored, not archived</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="footnote">
+    <em>Annual billing</em> is paid upfront and gives you two months free. Implementation fees are one-time, scoped to the number of doctors and locations, and include professional onboarding, data migration, and the first 30 days of dedicated support. We do not charge exit fees. We do not hold your data hostage. If you leave, we will help you leave — that is what trust looks like at the end of the relationship, which is when it matters most.
+  </p>
+</main>
+
+<script>
+  // ===== Billing toggle =====
+  const buttons = document.querySelectorAll('.toggle button');
+  const prices = document.querySelectorAll('.plan-price-value');
+
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      buttons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const mode = btn.dataset.billing;
+      prices.forEach(p => {
+        const val = p.dataset[mode];
+        p.textContent = val.startsWith('$') ? '$' + val.replace('$','') : val;
+      });
+    });
+  });
+</script>
+
+</body>
+</html>

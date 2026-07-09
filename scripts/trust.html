@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>Trust — Veltra</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&display=swap" rel="stylesheet">
+<style>
+@page {
+  size: 720px 1020px;
+  margin: 0;
+}
+:root {
+  --c-bg: #0A0A0A;
+  --c-bg-2: #141414;
+  --c-text: #F5F1EA;
+  --c-text-2: #A39C8E;
+  --c-text-3: #6B6558;
+  --c-accent: #D4A574;
+  --c-rule: #2A2823;
+}
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 720px;
+  background: var(--c-bg);
+  color: var(--c-text);
+  font-family: 'Inter', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  font-weight: 400;
+}
+@media screen {
+  html {
+    height: auto;
+    display: flex;
+    justify-content: center;
+    background: #222;
+  }
+  body {
+    transform-origin: top center;
+    margin: 20px auto;
+    box-shadow: 0 0 40px rgba(0,0,0,0.5);
+  }
+}
+
+/* ============ COVER ============ */
+.cover {
+  width: 720px;
+  height: 1020px;
+  box-sizing: border-box;
+  padding: 64px 60px;
+  break-after: page;
+  overflow: hidden;
+  background: var(--c-bg);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.cover-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.cover-mark {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.32em;
+  color: var(--c-text-2);
+  text-transform: uppercase;
+}
+.cover-edition {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  color: var(--c-text-3);
+  text-align: right;
+  line-height: 1.6;
+}
+.cover-center {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 40px 0;
+}
+.cover-eyebrow {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.4em;
+  color: var(--c-accent);
+  text-transform: uppercase;
+  margin-bottom: 28px;
+}
+.cover-title {
+  font-family: 'Playfair Display', serif;
+  font-weight: 400;
+  font-size: 96px;
+  line-height: 0.96;
+  color: var(--c-text);
+  letter-spacing: -0.03em;
+  margin: 0 0 8px 0;
+}
+.cover-title em {
+  font-style: italic;
+  color: var(--c-accent);
+}
+.cover-subtitle {
+  font-size: 17px;
+  font-weight: 300;
+  line-height: 1.55;
+  color: var(--c-text-2);
+  margin-top: 32px;
+  max-width: 520px;
+  letter-spacing: -0.005em;
+}
+.cover-bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: flex-start;
+  border-top: 1px solid var(--c-rule);
+  padding-top: 40px;
+}
+.cover-bottom-left {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  color: var(--c-text-3);
+  text-transform: uppercase;
+}
+.cover-bottom-right {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  color: var(--c-text-2);
+  letter-spacing: 0.05em;
+}
+
+/* ============ BODY ============ */
+.main-content {
+  padding: 80px 64px 60px 64px;
+}
+.chapter-header {
+  break-after: avoid;
+  break-inside: avoid;
+  margin-top: 36px;
+  margin-bottom: 24px;
+}
+.chapter-header:first-child {
+  margin-top: 0;
+}
+.chapter-number {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 13px;
+  color: var(--c-accent);
+  margin-bottom: 14px;
+}
+.chapter-title {
+  font-family: 'Playfair Display', serif;
+  font-weight: 400;
+  font-size: 34px;
+  line-height: 1.1;
+  color: var(--c-text);
+  letter-spacing: -0.02em;
+  margin: 0 0 44px 0;
+}
+.chapter-rule {
+  width: 36px;
+  height: 1px;
+  background: var(--c-accent);
+  margin-bottom: 48px;
+}
+.body-text {
+  font-size: 14.5px;
+  line-height: 1.75;
+  color: var(--c-text);
+  margin: 0 0 16px 0;
+  letter-spacing: -0.003em;
+}
+.body-text.lead {
+  font-size: 18px;
+  line-height: 1.6;
+  font-weight: 300;
+  margin-bottom: 24px;
+}
+.body-text em {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  color: var(--c-accent);
+}
+
+.callout {
+  break-inside: avoid;
+  margin: 32px 0;
+  padding: 0;
+}
+.callout-text {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 1.4;
+  color: var(--c-text);
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+.pillar {
+  break-inside: avoid;
+  margin: 28px 0;
+  padding-left: 24px;
+  border-left: 1px solid var(--c-rule);
+}
+.pillar-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  color: var(--c-accent);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.pillar-title {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 22px;
+  line-height: 1.25;
+  color: var(--c-text);
+  margin: 0 0 10px 0;
+  letter-spacing: -0.01em;
+}
+.pillar-body {
+  font-size: 13.5px;
+  line-height: 1.7;
+  color: var(--c-text-2);
+  margin: 0;
+}
+
+.spec-grid {
+  break-inside: avoid;
+  margin: 24px 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  border-top: 1px solid var(--c-rule);
+}
+.spec-cell {
+  padding: 18px 0;
+  border-bottom: 1px solid var(--c-rule);
+  padding-right: 24px;
+}
+.spec-cell:nth-child(even) {
+  padding-left: 24px;
+  padding-right: 0;
+  border-left: 1px solid var(--c-rule);
+}
+.spec-cell-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.25em;
+  color: var(--c-text-3);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.spec-cell-value {
+  font-family: 'JetBrains Mono', 'Liberation Mono', monospace;
+  font-size: 13px;
+  color: var(--c-text);
+  letter-spacing: 0.02em;
+}
+
+/* ============ ENDING ============ */
+.ending {
+  width: 720px;
+  height: 1020px;
+  box-sizing: border-box;
+  padding: 64px 60px;
+  break-before: page;
+  overflow: hidden;
+  background: var(--c-bg);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.ending-top {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  color: var(--c-text-3);
+  text-transform: uppercase;
+}
+.ending-center {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.ending-quote {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 36px;
+  line-height: 1.3;
+  color: var(--c-text);
+  margin: 0;
+  letter-spacing: -0.015em;
+}
+.ending-rule {
+  width: 36px;
+  height: 1px;
+  background: var(--c-accent);
+  margin-top: 48px;
+}
+.ending-attr {
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  color: var(--c-text-3);
+  text-transform: uppercase;
+  margin-top: 48px;
+}
+.ending-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  color: var(--c-text-3);
+  text-transform: uppercase;
+}
+</style>
+</head>
+<body>
+
+<!-- ============================== COVER ============================== -->
+<div class="cover">
+  <div class="cover-top">
+    <div class="cover-mark">VELTRA &nbsp;·&nbsp; TRUST DOCUMENT 003</div>
+    <div class="cover-edition">One page<br>One promise</div>
+  </div>
+
+  <div class="cover-center">
+    <div class="cover-eyebrow">Trust</div>
+    <h1 class="cover-title">Without<br><em>exaggeration.</em></h1>
+    <p class="cover-subtitle">
+      Trust is not a list of certifications. Trust is what the system does when no one is watching, and how it explains itself when challenged.
+    </p>
+  </div>
+
+  <div class="cover-bottom">
+    <div class="cover-bottom-left">For doctors, patients, and regulators</div>
+    <div class="cover-bottom-right">veltrahealth.com / trust</div>
+  </div>
+</div>
+
+<!-- ============================== BODY ============================== -->
+<div class="main-content">
+
+  <!-- Chapter 1: The Premise -->
+  <div class="chapter-header">
+    <div class="chapter-number">I &nbsp;—&nbsp; The Premise</div>
+    <h2 class="chapter-title">Trust is not a badge.</h2>
+    <div class="chapter-rule"></div>
+  </div>
+
+  <p class="body-text lead">
+    Healthcare software has earned its reputation for overpromising. Every product page shows the same row of compliance logos. HIPAA. SOC 2. GDPR. PDPL. The logos have become wallpaper. They mean the company passed an audit. They do not mean the company can be trusted. We do not intend to add to that wallpaper.
+  </p>
+
+  <p class="body-text">
+    Trust is not a certificate on a wall. Trust is what happens at 2 AM on a Sunday, when a patient asks to be forgotten, and the system forgets them — not because a regulator demanded it, but because forgetting is what memory is supposed to do. Trust is what happens when a doctor asks <em>why did you surface this</em>, and the system answers, in plain language, with the chain of observations that led to the recommendation. Trust is what happens when the system makes a mistake, and the doctor corrects it, and the system does not silently update its model of reality. It records the correction. It does not generalize from a single error.
+  </p>
+
+  <p class="body-text">
+    We are not going to list twenty certifications on this page. We are going to list five things Veltra does, and five things Veltra does not do. The certifications are real, and they are listed once, at the bottom, in small type. The five things are the contract.
+  </p>
+
+  <!-- Chapter 2: Five Promises -->
+  <div class="chapter-header">
+    <div class="chapter-number">II &nbsp;—&nbsp; Five Promises</div>
+    <h2 class="chapter-title">What Veltra does.</h2>
+    <div class="chapter-rule"></div>
+  </div>
+
+  <div class="pillar">
+    <div class="pillar-label">Promise 01</div>
+    <p class="pillar-title">Veltra explains itself.</p>
+    <p class="pillar-body">If Veltra surfaces a recommendation, the doctor can ask <em>why</em>. Veltra will answer — in plain language, with the chain of observations that produced the conclusion. A memory that cannot be challenged is a rumor. A memory that can be challenged, traced, corrected, and refused is a colleague. This is the line.</p>
+  </div>
+
+  <div class="pillar">
+    <div class="pillar-label">Promise 02</div>
+    <p class="pillar-title">Veltra forgets on purpose.</p>
+    <p class="pillar-body">When a patient asks to be forgotten under PDPL Article 18, Veltra does not archive. Veltra does not soft-delete. Veltra erases the patient's identity, their appointments, their records, their contact details. The patterns they contributed to the collective memory survive, in anonymized, irreversible aggregate. The memory of "patients like this one" survives. The memory of "this patient" does not. This is what memory actually means.</p>
+  </div>
+
+  <div class="pillar">
+    <div class="pillar-label">Promise 03</div>
+    <p class="pillar-title">Veltra does not override the doctor.</p>
+    <p class="pillar-body">When Memory disagrees with the doctor, the doctor wins. Always. If Memory is right, the doctor will see it in time. If Memory is wrong, the doctor's instinct is the safety net. A Chief of Staff who overrules the doctor is not a Chief of Staff. It is a liability. This is non-negotiable.</p>
+  </div>
+
+  <div class="pillar">
+    <div class="pillar-label">Promise 04</div>
+    <p class="pillar-title">Veltra does not learn from a single error.</p>
+    <p class="pillar-body">When a doctor revises a diagnosis, Veltra records the revision. It surfaces the revision in the patient's timeline. It does not silently update its model of "what this symptom usually means." Generalizing from a single error is how bias enters a system. Memory is humble by design.</p>
+  </div>
+
+  <div class="pillar">
+    <div class="pillar-label">Promise 05</div>
+    <p class="pillar-title">Veltra does not sell data. Ever.</p>
+    <p class="pillar-body">Patient data is not a revenue stream. It is not a training set for a future product. It is not shared with partners, advertisers, researchers, or affiliates. The data your clinic generates stays in your clinic's tenancy, encrypted at rest with keys you control. The collective memory across clinics is computed on anonymized, irreversible aggregates. The raw record never leaves the clinic. This is a promise, not a setting.</p>
+  </div>
+
+  <!-- Chapter 3: Five Refusals -->
+  <div class="chapter-header">
+    <div class="chapter-number">III &nbsp;—&nbsp; Five Refusals</div>
+    <h2 class="chapter-title">What Veltra does not do.</h2>
+    <div class="chapter-rule"></div>
+  </div>
+
+  <div class="pillar">
+    <div class="pillar-label">Refusal 01</div>
+    <p class="pillar-title">Veltra does not sell, share, or license patient data.</p>
+    <p class="pillar-body">Not to insurers. Not to pharmaceutical companies. Not to research institutions without explicit, written, patient-level consent obtained by the clinic — not by Veltra. There is no "anonymized data partnership" line item in our business model. There never will be.</p>
+  </div>
+
+  <div class="pillar">
+    <div class="pillar-label">Refusal 02</div>
+    <p class="pillar-title">Veltra does not use patient data to train third-party models.</p>
+    <p class="pillar-body">Veltra's memory is computed within your clinic's tenancy. Patterns that span clinics are computed on irreversible aggregates — never on raw records. We do not feed your patients' data into a foundation model owned by anyone, including ourselves.</p>
+  </div>
+
+  <div class="pillar">
+    <div class="pillar-label">Refusal 03</div>
+    <p class="pillar-title">Veltra does not deploy black-box recommendations.</p>
+    <p class="pillar-body">Every recommendation has a trace. Every trace is reviewable. If a recommendation cannot be explained in plain language to a doctor, it does not ship. We have refused features in the past for this reason. We will refuse them in the future.</p>
+  </div>
+
+  <div class="pillar">
+    <div class="pillar-label">Refusal 04</div>
+    <p class="pillar-title">Veltra does not market using patient outcomes.</p>
+    <p class="pillar-body">No testimonials with patient counts. No case studies that identify clinics without their written consent. No "powered by" badges on partner sites. The clinic's success belongs to the clinic.</p>
+  </div>
+
+  <div class="pillar">
+    <div class="pillar-label">Refusal 05</div>
+    <p class="pillar-title">Veltra does not lock you in.</p>
+    <p class="pillar-body">Your data is yours. Export it anytime, in standard formats. Cancel anytime. We do not hold migrations hostage. We do not charge exit fees. If you leave, we will help you leave. That is what trust looks like at the end of the relationship, which is when it matters most.</p>
+  </div>
+
+  <!-- Chapter 4: The Specifics -->
+  <div class="chapter-header">
+    <div class="chapter-number">IV &nbsp;—&nbsp; The Specifics</div>
+    <h2 class="chapter-title">The certifications, in small type.</h2>
+    <div class="chapter-rule"></div>
+  </div>
+
+  <p class="body-text">
+    We said we would list them once, at the bottom, in small type. Here they are. They are real. They are audited. They are necessary. They are not sufficient. The five promises above are the contract. The certifications below are the receipts.
+  </p>
+
+  <div class="spec-grid">
+    <div class="spec-cell">
+      <div class="spec-cell-label">Encryption in transit</div>
+      <div class="spec-cell-value">TLS 1.3</div>
+    </div>
+    <div class="spec-cell">
+      <div class="spec-cell-label">Encryption at rest</div>
+      <div class="spec-cell-value">AES-256</div>
+    </div>
+    <div class="spec-cell">
+      <div class="spec-cell-label">Access control</div>
+      <div class="spec-cell-value">Role-based · Per-tenant</div>
+    </div>
+    <div class="spec-cell">
+      <div class="spec-cell-label">Audit logging</div>
+      <div class="spec-cell-value">Immutable · 7-year retention</div>
+    </div>
+    <div class="spec-cell">
+      <div class="spec-cell-label">Data residency</div>
+      <div class="spec-cell-value">KSA · UAE · EU (per tenant)</div>
+    </div>
+    <div class="spec-cell">
+      <div class="spec-cell-label">Deletion (PDPL Art. 18)</div>
+      <div class="spec-cell-value">Within 30 days · Cryptographic erase</div>
+    </div>
+    <div class="spec-cell">
+      <div class="spec-cell-label">Subprocessors</div>
+      <div class="spec-cell-value">Published list · 30-day notice</div>
+    </div>
+    <div class="spec-cell">
+      <div class="spec-cell-label">Compliance reports</div>
+      <div class="spec-cell-value">HIPAA · SOC 2 Type II · PDPL</div>
+    </div>
+  </div>
+
+  <p class="body-text" style="color: var(--c-text-3); font-size: 12px; margin-top: 48px; letter-spacing: 0.05em;">
+    — Full compliance documentation available under NDA. Status page: status.veltrahealth.com. Security inquiries: security@veltrahealth.com.
+  </p>
+
+</div>
+
+<!-- ============================== ENDING ============================== -->
+<div class="ending">
+  <div class="ending-top">
+    <span>VELTRA</span>
+    <span>TRUST · 003</span>
+  </div>
+
+  <div class="ending-center">
+    <p class="ending-quote">"A memory that cannot<br>be challenged is a rumor.<br>A memory that can be<br>challenged is a colleague."</p>
+    <div class="ending-rule"></div>
+    <p class="ending-attr">— Veltra Trust Document · Closing</p>
+  </div>
+
+  <div class="ending-bottom">
+    <span>For doctors, patients, regulators</span>
+    <span>veltrahealth.com / trust</span>
+  </div>
+</div>
+
+</body>
+</html>

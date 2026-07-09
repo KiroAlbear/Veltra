@@ -1,0 +1,438 @@
+/**
+ * VELTRA — Professional Export Template
+ * 
+ * Used for: Brief print, Patient records export, Reports PDF
+ * Brand: Veltra — The Clinic Operating System
+ * Colors: Midnight (#071323), Emerald (#39CFA2), Warm White (#FAF8F5)
+ * 
+ * Usage:
+ * 1. User clicks "Print" or "Export" on any screen
+ * 2. This CSS applies via @media print
+ * 3. Output is a branded Veltra document
+ * 
+ * Structure:
+ *   ┌─────────────────────────────────┐
+ *   │ [V] Veltra — Document Title    │ ← Header (logo + title + date)
+ *   │                                 │
+ *   │  Content...                     │ ← Body (screen-specific)
+ *   │                                 │
+ *   │ ─────────────────────────────── │ 
+ *   │ © 2026 Veltra Technologies     │ ← Footer (copyright + page)
+ *   │ veltrahealth.co                 │
+ *   └─────────────────────────────────┘
+ */
+
+/* ===== Print Styles ===== */
+@media print {
+  /* Reset page */
+  @page {
+    size: A4;
+    margin: 0;
+  }
+
+  html, body {
+    margin: 0 !important;
+    padding: 0 !important;
+    background: white !important;
+    color: #1A2238 !important;
+    font-family: 'Inter', -apple-system, sans-serif !important;
+    font-size: 11pt !important;
+    line-height: 1.5 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Hide app chrome when printing — sidebar, top bar, demo banner, buttons */
+  .no-print,
+  aside,
+  header,
+  .veltra-top-bar,
+  .demo-banner,
+  button,
+  .veltra-ambient::before,
+  .veltra-ambient::after,
+  [role="dialog"],
+  .veltra-glass::before {
+    display: none !important;
+  }
+
+  /* Show print-only elements */
+  .print-only {
+    display: block !important;
+  }
+
+  /* Reset main content layout for print */
+  main {
+    display: block !important;
+    overflow: visible !important;
+  }
+
+  /* Remove ambient effects */
+  .veltra-ambient {
+    background: white !important;
+    min-height: 0 !important;
+  }
+
+  /* ===== Veltra Print Header ===== */
+  .veltra-print-header {
+    display: flex !important;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 24px 40px 20px;
+    border-bottom: 2px solid #39CFA2;
+    margin-bottom: 0;
+    gap: 24px;
+  }
+
+  .veltra-print-header .header-left {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex: 1;
+  }
+
+  .veltra-print-header .logo-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .veltra-print-header .logo-text-block {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+  }
+
+  .veltra-print-header .logo-text {
+    font-size: 16pt;
+    font-weight: 700;
+    color: #071323;
+    letter-spacing: -0.02em;
+  }
+
+  .veltra-print-header .logo-tagline {
+    font-size: 8pt;
+    color: #6B7280;
+    font-style: italic;
+    letter-spacing: 0.02em;
+  }
+
+  .veltra-print-header .clinic-info {
+    display: flex;
+    flex-direction: column;
+    font-size: 9pt;
+    color: #4B5563;
+    line-height: 1.5;
+  }
+
+  .veltra-print-header .clinic-info strong {
+    color: #071323;
+    font-size: 10pt;
+    margin-bottom: 2px;
+  }
+
+  .veltra-print-header .header-right {
+    text-align: right;
+    flex: 1;
+  }
+
+  .veltra-print-header .doc-title {
+    font-size: 16pt;
+    font-weight: 700;
+    color: #071323;
+    margin: 0 0 4px;
+    letter-spacing: -0.01em;
+  }
+
+  .veltra-print-header .doc-date {
+    font-size: 10pt;
+    color: #4B5563;
+    margin: 0 0 4px;
+  }
+
+  .veltra-print-header .doc-patient {
+    font-size: 10pt;
+    color: #071323;
+    font-weight: 600;
+    margin: 8px 0 0;
+    padding-top: 6px;
+    border-top: 1px dashed #D1D5DB;
+  }
+
+  /* ===== Doctor strip (below header) ===== */
+  .veltra-doctor-strip {
+    display: flex !important;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 40px;
+    background: #F5F5F0;
+    border-bottom: 1px solid #E5E7EB;
+    font-size: 10pt;
+    color: #071323;
+  }
+
+  .veltra-doctor-strip .strip-label {
+    color: #6B7280;
+    font-size: 8pt;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .veltra-doctor-strip .strip-title {
+    color: #6B7280;
+    font-weight: 400;
+  }
+
+  .veltra-doctor-strip .strip-doc-id {
+    font-size: 9pt;
+    color: #6B7280;
+  }
+
+  /* ===== Veltra Print Body ===== */
+  .veltra-print-body {
+    padding: 0 40px;
+  }
+
+  .veltra-print-body h2 {
+    font-size: 12pt;
+    font-weight: 600;
+    color: #071323;
+    margin: 20px 0 10px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #E5E7EB;
+  }
+
+  .veltra-print-body h3 {
+    font-size: 11pt;
+    font-weight: 600;
+    color: #071323;
+    margin: 16px 0 8px;
+  }
+
+  .veltra-print-body p {
+    font-size: 10pt;
+    color: #1A2238;
+    margin: 6px 0;
+    line-height: 1.6;
+  }
+
+  .veltra-print-body table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0;
+    font-size: 10pt;
+  }
+
+  .veltra-print-body th {
+    text-align: left;
+    padding: 8px 12px;
+    background: #F5F5F0;
+    color: #071323;
+    font-weight: 600;
+    font-size: 9pt;
+    border-bottom: 1px solid #39CFA2;
+  }
+
+  .veltra-print-body td {
+    padding: 8px 12px;
+    border-bottom: 1px solid #E5E7EB;
+    color: #1A2238;
+  }
+
+  .veltra-print-body .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin: 16px 0;
+  }
+
+  .veltra-print-body .stat-card {
+    border: 1px solid #E5E7EB;
+    border-radius: 8px;
+    padding: 12px;
+  }
+
+  .veltra-print-body .stat-card .label {
+    font-size: 8pt;
+    color: #6B7280;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .veltra-print-body .stat-card .value {
+    font-size: 16pt;
+    font-weight: 600;
+    color: #071323;
+    margin-top: 4px;
+  }
+
+  /* ===== Handwritten note space ===== */
+  .veltra-note-space {
+    display: block !important;
+    margin: 24px 40px 0;
+    padding: 16px 20px;
+    border: 1px solid #D1D5DB;
+    border-radius: 6px;
+    background: #FAFAF7;
+  }
+
+  .veltra-note-space .note-label {
+    font-size: 9pt;
+    color: #6B7280;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin: 0 0 12px;
+    font-weight: 600;
+  }
+
+  .veltra-note-space .note-lines {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .veltra-note-space .note-line {
+    border-bottom: 1px dashed #9CA3AF;
+    height: 1px;
+  }
+
+  /* ===== Signature row (doctor + patient) ===== */
+  .veltra-signature-row {
+    display: flex !important;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding: 40px 40px 24px;
+    gap: 40px;
+    page-break-inside: avoid;
+  }
+
+  .veltra-signature-row .signature-block {
+    display: flex;
+    align-items: flex-end;
+    gap: 16px;
+    flex: 1;
+  }
+
+  .veltra-signature-row .signature-block.patient {
+    justify-content: flex-end;
+  }
+
+  .veltra-signature-row .stamp-box {
+    width: 90px;
+    height: 90px;
+    border: 2px dashed #9CA3AF;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .veltra-signature-row .stamp-box .stamp-label {
+    font-size: 9pt;
+    color: #9CA3AF;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .veltra-signature-row .signature-line {
+    display: flex;
+    flex-direction: column;
+    border-top: 1.5px solid #071323;
+    padding-top: 6px;
+    min-width: 180px;
+  }
+
+  .veltra-signature-row .signature-name {
+    font-size: 11pt;
+    font-weight: 600;
+    color: #071323;
+  }
+
+  .veltra-signature-row .signature-role {
+    font-size: 8pt;
+    color: #6B7280;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 2px;
+  }
+
+  /* ===== Veltra Print Footer ===== */
+  .veltra-print-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex !important;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 40px;
+    border-top: 1px solid #E5E7EB;
+    background: white;
+  }
+
+  .veltra-print-footer .copyright {
+    font-size: 8pt;
+    color: #6B7280;
+  }
+
+  .veltra-print-footer .tagline {
+    font-size: 8pt;
+    color: #6B7280;
+    font-style: italic;
+  }
+
+  .veltra-print-footer .page-num {
+    font-size: 8pt;
+    color: #6B7280;
+  }
+
+  /* ===== Status badges (for print) ===== */
+  .veltra-print-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 8pt;
+    font-weight: 600;
+  }
+
+  .veltra-print-badge.success { background: #E6FAF3; color: #1FA17F; }
+  .veltra-print-badge.warning { background: #FEF3C7; color: #92400E; }
+  .veltra-print-badge.danger { background: #FEE2E2; color: #991B1B; }
+  .veltra-print-badge.info { background: #DBEAFE; color: #1E40AF; }
+
+  /* ===== Breaks ===== */
+  .veltra-print-page-break {
+    page-break-before: always;
+  }
+
+  .veltra-print-avoid-break {
+    page-break-inside: avoid;
+  }
+}
+
+/* ===== Print-only elements (hidden on screen) ===== */
+.print-only {
+  display: none;
+}
+
+/* ===== Export button styling ===== */
+.veltra-export-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 11px;
+  font-weight: 500;
+  color: #6B7280;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.veltra-export-btn:hover {
+  color: #39CFA2;
+  background: rgba(57, 207, 162, 0.05);
+}

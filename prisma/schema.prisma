@@ -1,0 +1,381 @@
+// VELTRA — Prisma Schema
+// The database foundation for the Clinic Operating System.
+// Multi-tenant, HIPAA-aware, audit-ready.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ===== Tenant (Clinic / Organization) =====
+model Tenant {
+  id          String   @id @default(cuid())
+  name        String
+  tier        Tier     @default(PLATFORM)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  users       User[]
+  locations   Location[]
+  patients    Patient[]
+  appointments Appointment[]
+  auditLogs   AuditLog[]
+  subscriptions Subscription[]
+}
+
+model Tier {
+  PLATFORM
+  ENTERPRISE
+}
+
+// ===== Users (Doctors, Receptionists, Nurses, Admins) =====
+model User {
+  id            String   @id @default(cuid())
+  tenantId      String
+  email         String   @unique
+  passwordHash  String
+  name          String
+  role          Role     @default(DOCTOR)
+  title         String?
+  avatarColor   String?
+  initials      String?
+  twoFactorEnabled Boolean @default(false)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  tenant        Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  appointments  Appointment[]
+  prescriptions Prescription[]
+  labResults    LabResult[]
+  voiceNotes    VoiceNote[]
+  vitals        Vital[]
+  auditLogs     AuditLog[]
+
+  @@index([tenantId])
+}
+
+model Role {
+  ADMIN
+  DOCTOR
+  RECEPTIONIST
+  NURSE
+}
+
+// ===== Locations (Clinic branches) =====
+model Location {
+  id          String   @id @default(cuid())
+  tenantId    String
+  name        String
+  address     String?
+  phone       String?
+  isPrimary   Boolean  @default(false)
+  createdAt   DateTime @default(now())
+
+  tenant      Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  appointments Appointment[]
+
+  @@index([tenantId])
+}
+
+// ===== Patients =====
+model Patient {
+  id              String   @id @default(cuid())
+  tenantId        String
+  name            String
+  age             Int?
+  gender          String?
+  phone           String?
+  email           String?
+  conditions      String[]
+  medications     String[]
+  allergies       String[]
+  familyHistory   String?
+  preferredChannel String  @default("whatsapp")
+  riskScore       Int      @default(0)
+  loyaltyTier     String   @default("bronze")
+  leadSource      String?
+  city            String?
+  status          String   @default("active")
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  tenant          Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  appointments    Appointment[]
+  prescriptions   Prescription[]
+  labResults      LabResult[]
+  vitals          Vital[]
+  voiceNotes      VoiceNote[]
+  timelineEvents  TimelineEvent[]
+  documents       Document[]
+  insuranceClaims InsuranceClaim[]
+  whatsappMessages WhatsAppMessage[]
+  intakes         Intake[]
+
+  @@index([tenantId])
+  @@index([name])
+  @@index([phone])
+}
+
+// ===== Appointments =====
+model Appointment {
+  id          String   @id @default(cuid())
+  tenantId    String
+  patientId   String
+  doctorId    String?
+  locationId  String?
+  time        String
+  date        DateTime
+  duration    Int      @default(30)
+  type        String
+  status      String   @default("scheduled")
+  notes       String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  tenant      Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  patient     Patient  @relation(fields: [patientId], references: [id], onDelete: Cascade)
+  doctor      User?    @relation(fields: [doctorId], references: [id])
+  location    Location? @relation(fields: [locationId], references: [id])
+
+  @@index([tenantId, date])
+  @@index([patientId])
+  @@index([doctorId])
+}
+
+// ===== Timeline Events (Clinical Memory) =====
+model TimelineEvent {
+  id          String   @id @default(cuid())
+  tenantId    String
+  patientId   String
+  type        String   // call, booking, reminder, check-in, diagnosis, lab, prescription, payment, follow-up, note
+  title       String
+  description String?
+  actor       String
+  metadata    Json?
+  createdAt   DateTime @default(now())
+
+  tenant      Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  patient     Patient  @relation(fields: [patientId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId, patientId, createdAt])
+}
+
+// ===== Prescriptions =====
+model Prescription {
+  id          String   @id @default(cuid())
+  tenantId    String
+  patientId   String
+  doctorId    String
+  medication  String
+  dosage       String
+  frequency   String
+  duration    String?
+  notes       String?
+  status      String   @default("active")
+  createdAt   DateTime @default(now())
+
+  tenant      Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  patient     Patient  @relation(fields: [patientId], references: [id], onDelete: Cascade)
+  doctor      User     @relation(fields: [doctorId], references: [id])
+
+  @@index([tenantId, patientId])
+}
+
+// ===== Lab Results =====
+model LabResult {
+  id          String   @id @default(cuid())
+  tenantId    String
+  patientId   String
+  orderedById String?
+  testType    String
+  value       String
+  unit        String?
+  normalRange String?
+  status      String   @default("normal") // normal, high, low, critical
+  notes       String?
+  createdAt   DateTime @default(now())
+
+  tenant      Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  patient     Patient  @relation(fields: [patientId], references: [id], onDelete: Cascade)
+  orderedBy   User?    @relation(fields: [orderedById], references: [id])
+
+  @@index([tenantId, patientId])
+}
+
+// ===== Vitals =====
+model Vital {
+  id          String   @id @default(cuid())
+  tenantId    String
+  patientId   String
+  recordedById String?
+  bpSystolic  Int?
+  bpDiastolic Int?
+  heartRate   Int?
+  temperature Float?
+  bloodSugar  Float?
+  oxygenLevel Int?
+  weight      Float?
+  notes       String?
+  createdAt   DateTime @default(now())
+
+  tenant      Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  patient     Patient  @relation(fields: [patientId], references: [id], onDelete: Cascade)
+  recordedBy  User?    @relation(fields: [recordedById], references: [id])
+
+  @@index([tenantId, patientId])
+}
+
+// ===== Voice Notes (24/7 patient communication) =====
+model VoiceNote {
+  id          String   @id @default(cuid())
+  tenantId    String
+  patientId   String
+  recordedById String?
+  durationSec Int
+  transcript  String
+  audioUrl    String?  // S3/MinIO URL
+  createdAt   DateTime @default(now())
+
+  tenant      Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  patient     Patient  @relation(fields: [patientId], references: [id], onDelete: Cascade)
+  recordedBy  User?    @relation(fields: [recordedById], references: [id])
+
+  @@index([tenantId, patientId])
+}
+
+// ===== Intake (Dr. Balu's feature — multi-step smart form) =====
+model Intake {
+  id              String   @id @default(cuid())
+  tenantId        String
+  patientId       String
+  // Demographics
+  age             Int?
+  gender          String?
+  phone           String?
+  email           String?
+  // Symptoms
+  chiefComplaint  String?
+  duration        String?
+  severity        Int?
+  previousTreatment String?
+  // History
+  conditions      String[]
+  medications     String[]
+  allergies       String[]
+  familyHistory   String?
+  // Lifestyle (phone data — Dr. Balu's request)
+  sleepHours      Float?
+  exerciseFreq    String?
+  diet            String?
+  smoking         String?
+  alcohol         String?
+  stressLevel     Int?
+  // Voice
+  voiceTranscript String?
+  voiceDuration   Int?
+  // Consent
+  consent         Boolean  @default(false)
+  // Generated brief
+  preVisitBrief   String?
+  createdAt       DateTime @default(now())
+
+  tenant      Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  patient     Patient  @relation(fields: [patientId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId, patientId])
+}
+
+// ===== Documents =====
+model Document {
+  id          String   @id @default(cuid())
+  tenantId    String
+  patientId   String
+  name        String
+  type        String   // xray, lab-report, prescription, consent, other
+  uploadedById String?
+  size        String?
+  url         String?
+  createdAt   DateTime @default(now())
+
+  tenant      Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  patient     Patient  @relation(fields: [patientId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId, patientId])
+}
+
+// ===== Insurance Claims =====
+model InsuranceClaim {
+  id          String   @id @default(cuid())
+  tenantId    String
+  patientId   String
+  provider    String
+  policyNumber String?
+  serviceType String?
+  amount      Float
+  status      String   @default("pending") // pending, submitted, approved, rejected, paid
+  submittedAt DateTime @default(now())
+  resolvedAt  DateTime?
+  notes       String?
+
+  tenant      Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  patient     Patient  @relation(fields: [patientId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId, status])
+}
+
+// ===== WhatsApp Messages =====
+model WhatsAppMessage {
+  id          String   @id @default(cuid())
+  tenantId    String
+  patientId   String
+  direction   String   // outbound, inbound
+  message     String
+  status      String   @default("sent") // sent, delivered, read
+  sentById    String?
+  createdAt   DateTime @default(now())
+
+  tenant      Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  patient     Patient  @relation(fields: [patientId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId, patientId])
+}
+
+// ===== Audit Log (immutable, append-only) =====
+model AuditLog {
+  id          String   @id @default(cuid())
+  tenantId    String
+  userId      String?
+  userName    String
+  userRole    String
+  action      String
+  target      String
+  metadata    Json?
+  createdAt   DateTime @default(now())
+
+  tenant      Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  user        User?    @relation(fields: [userId], references: [id])
+
+  @@index([tenantId, createdAt])
+}
+
+// ===== Subscriptions (Stripe billing) =====
+model Subscription {
+  id              String   @id @default(cuid())
+  tenantId        String
+  stripeCustomerId String? @unique
+  stripeSubscriptionId String? @unique
+  stripePriceId   String?
+  tier            Tier     @default(PLATFORM)
+  status          String   @default("active") // active, past_due, canceled, trialing
+  currentPeriodEnd DateTime?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  tenant          Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId])
+}

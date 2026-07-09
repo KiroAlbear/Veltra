@@ -1,0 +1,21 @@
+{
+  "/_global-error/page": "/_global-error",
+  "/_not-found/page": "/_not-found",
+  "/api/appointments/route": "/api/appointments",
+  "/api/auth/login/route": "/api/auth/login",
+  "/api/auth/signup/route": "/api/auth/signup",
+  "/api/billing/checkout/route": "/api/billing/checkout",
+  "/api/billing/webhook/route": "/api/billing/webhook",
+  "/api/health/route": "/api/health",
+  "/api/intake/route": "/api/intake",
+  "/api/patients/route": "/api/patients",
+  "/api/route": "/api",
+  "/api/voice-notes/route": "/api/voice-notes",
+  "/api/whatsapp/send/route": "/api/whatsapp/send",
+  "/constitution/page": "/constitution",
+  "/page": "/",
+  "/robots.txt/route": "/robots.txt",
+  "/security/page": "/security",
+  "/signup/page": "/signup",
+  "/sitemap.xml/route": "/sitemap.xml"
+}

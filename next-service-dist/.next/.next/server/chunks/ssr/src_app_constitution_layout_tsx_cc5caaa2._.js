@@ -1,0 +1,3 @@
+module.exports=[40885,a=>{"use strict";function b({children:a}){return a}a.s(["default",()=>b,"metadata",0,{title:"Engineering Constitution — Veltra",description:"The single source of truth for every decision made inside Veltra. Three Laws, Decision Priority, Security Principles, and Definition of Done.",openGraph:{title:"The Veltra Constitution",description:"Remember everything. Reduce every click. Never interrupt care."}}])}];
+
+//# sourceMappingURL=src_app_constitution_layout_tsx_cc5caaa2._.js.map

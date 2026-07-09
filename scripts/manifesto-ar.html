@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8"/>
+<title>الذاكرة — بيان فِلترا</title>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=Noto+Sans+Arabic:wght@300;400;500;600;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+@page {
+  size: 720px 1020px;
+  margin: 0;
+}
+:root {
+  --c-bg: #0A0A0A;
+  --c-bg-2: #141414;
+  --c-text: #F5F1EA;
+  --c-text-2: #A39C8E;
+  --c-text-3: #6B6558;
+  --c-accent: #D4A574;
+  --c-rule: #2A2823;
+}
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 720px;
+  background: var(--c-bg);
+  color: var(--c-text);
+  font-family: 'Noto Sans Arabic', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  font-weight: 400;
+  direction: rtl;
+}
+@media screen {
+  html {
+    height: auto;
+    display: flex;
+    justify-content: center;
+    background: #222;
+  }
+  body {
+    transform-origin: top center;
+    margin: 20px auto;
+    box-shadow: 0 0 40px rgba(0,0,0,0.5);
+  }
+}
+
+/* ============ COVER ============ */
+.cover {
+  width: 720px;
+  height: 1020px;
+  box-sizing: border-box;
+  padding: 64px 60px;
+  break-after: page;
+  overflow: hidden;
+  background: var(--c-bg);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.cover-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.cover-mark {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.32em;
+  color: var(--c-text-2);
+}
+.cover-edition {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  color: var(--c-text-3);
+  text-align: left;
+  line-height: 1.6;
+}
+.cover-center {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 60px 0;
+}
+.cover-eyebrow {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.4em;
+  color: var(--c-accent);
+  margin-bottom: 32px;
+}
+.cover-title {
+  font-family: 'Amiri', serif;
+  font-weight: 700;
+  font-size: 140px;
+  line-height: 1;
+  color: var(--c-text);
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+.cover-subtitle {
+  font-size: 19px;
+  font-weight: 300;
+  line-height: 1.6;
+  color: var(--c-text-2);
+  margin-top: 40px;
+  max-width: 520px;
+}
+.cover-bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: flex-end;
+  border-top: 1px solid var(--c-rule);
+  padding-top: 40px;
+}
+.cover-bottom-left {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  color: var(--c-text-3);
+}
+.cover-bottom-right {
+  font-family: 'Amiri', serif;
+  font-style: italic;
+  font-size: 14px;
+  color: var(--c-text-2);
+}
+
+/* ============ BODY ============ */
+.main-content {
+  padding: 80px 64px 60px 64px;
+}
+.chapter-header {
+  break-after: avoid;
+  break-inside: avoid;
+  margin-top: 36px;
+  margin-bottom: 24px;
+}
+.chapter-header:first-child { margin-top: 0; }
+.chapter-number {
+  font-family: 'Amiri', serif;
+  font-style: italic;
+  font-size: 14px;
+  color: var(--c-accent);
+  margin-bottom: 14px;
+}
+.chapter-title {
+  font-family: 'Amiri', serif;
+  font-weight: 700;
+  font-size: 42px;
+  line-height: 1.15;
+  color: var(--c-text);
+  letter-spacing: -0.01em;
+  margin: 0 0 44px 0;
+}
+.chapter-rule {
+  width: 36px;
+  height: 1px;
+  background: var(--c-accent);
+  margin-bottom: 48px;
+}
+.body-text {
+  font-size: 16px;
+  line-height: 1.9;
+  color: var(--c-text);
+  margin: 0 0 18px 0;
+}
+.body-text.lead {
+  font-size: 19px;
+  line-height: 1.7;
+  font-weight: 300;
+  margin-bottom: 24px;
+}
+.body-text em {
+  font-family: 'Amiri', serif;
+  font-style: italic;
+  font-weight: 700;
+  color: var(--c-accent);
+}
+
+.principle {
+  break-inside: avoid;
+  margin: 32px 0;
+  padding-right: 24px;
+  border-right: 1px solid var(--c-rule);
+}
+.principle-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  color: var(--c-accent);
+  margin-bottom: 8px;
+}
+.principle-title {
+  font-family: 'Amiri', serif;
+  font-style: italic;
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 1.3;
+  color: var(--c-text);
+  margin: 0 0 10px 0;
+}
+.principle-body {
+  font-size: 15px;
+  line-height: 1.8;
+  color: var(--c-text-2);
+  margin: 0;
+}
+
+.scenario {
+  break-inside: avoid;
+  margin: 24px 0;
+  padding: 22px 24px;
+  background: var(--c-bg-2);
+  border-right: 2px solid var(--c-accent);
+}
+.scenario-q {
+  font-family: 'Amiri', serif;
+  font-style: italic;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 1.4;
+  color: var(--c-text);
+  margin: 0 0 10px 0;
+}
+.scenario-a {
+  font-size: 14px;
+  line-height: 1.75;
+  color: var(--c-text-2);
+  margin: 0;
+}
+
+.callout {
+  break-inside: avoid;
+  margin: 32px 0;
+  padding: 0;
+}
+.callout-text {
+  font-family: 'Amiri', serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 1.5;
+  color: var(--c-text);
+  margin: 0;
+}
+
+/* ============ ENDING ============ */
+.ending {
+  width: 720px;
+  height: 1020px;
+  box-sizing: border-box;
+  padding: 64px 60px;
+  break-before: page;
+  overflow: hidden;
+  background: var(--c-bg);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.ending-top {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  color: var(--c-text-3);
+}
+.ending-center {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.ending-mark {
+  font-family: 'Amiri', serif;
+  font-style: italic;
+  font-weight: 700;
+  font-size: 70px;
+  line-height: 1.1;
+  color: var(--c-text);
+  margin: 0;
+}
+.ending-sub {
+  font-family: 'Amiri', serif;
+  font-style: italic;
+  font-size: 24px;
+  color: var(--c-text-2);
+  margin-top: 28px;
+  font-weight: 400;
+}
+.ending-rule {
+  width: 1px;
+  height: 60px;
+  background: var(--c-accent);
+  margin: 36px auto 0;
+  opacity: 0.6;
+}
+.ending-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  color: var(--c-text-3);
+}
+</style>
+</head>
+<body>
+
+<!-- ============================== COVER ============================== -->
+<div class="cover">
+  <div class="cover-top">
+    <div class="cover-mark">فِلترا · وثيقة داخلية 001</div>
+    <div class="cover-edition">الإصدار الأول<br>2026</div>
+  </div>
+
+  <div class="cover-center">
+    <div class="cover-eyebrow">البيان</div>
+    <h1 class="cover-title">الذاكرة.</h1>
+    <p class="cover-subtitle">
+      ليست تحليلات. ليست لوحة معلومات. ليست ميزة.<br>
+      الشيء الذي يحدد إن كانت فِلترا أداة، أم زميلًا.
+    </p>
+  </div>
+
+  <div class="cover-bottom">
+    <div class="cover-bottom-left">النجم الشمالي · لكل من يبني فِلترا</div>
+    <div class="cover-bottom-right">اقرأها قبل أن تكتب سطرًا واحدًا.</div>
+  </div>
+</div>
+
+<!-- ============================== BODY ============================== -->
+<div class="main-content">
+
+  <!-- Chapter 1 -->
+  <div class="chapter-header">
+    <div class="chapter-number">الأولى — المقدمة</div>
+    <h2 class="chapter-title">التقنية تختفي.<br>والرعاية تبقى.</h2>
+    <div class="chapter-rule"></div>
+  </div>
+
+  <p class="body-text lead">
+    كل منتج صحي صُنع في العشرين سنة الماضية وَعَدَ بالشيء نفسه: <em>أن يوفّر للطبيب الوقت</em>. لم يفعلها أيٌّ منهم تقريبًا. السبب ليس تقنيًا. السبب أنهم بُنوا ليسجّلوا ما حدث، لا ليفهموا ما يحدث. السجل مرآة. يُريك ما تعرفه أصلًا. الفهم شيءٌ آخر تمامًا. الفهم هو ما يفعله رئيس الأركان.
+  </p>
+
+  <p class="body-text">
+    فِلترا لم تُبنَ لتكون نسخة أسرع من العيادة. العيادة ليست بطيئة لأن برمجياتها بطيئة. العيادة بطيئة لأن ألف قرار صغير تقع على شخصٍ واحد كل يوم، وهذا الشخص تعيّن ليمارس الطب، لا ليُشغّل نظامًا. النظام كان يفترض أن يحمل العبء التشغيلي. لم يفعل. فقط راقب العبء وطلب إدخالًا.
+  </p>
+
+  <p class="body-text">
+    نبني فِلترا لعام 2030، لا لعام 2026. بحلول 2030، ستكون كل عيادة لديها أداة جدولة، وأداة فوترة، وأداة سجلات، وأداة مراسلة. ستكون هذه سلعًا. السؤال هو ما الذي يجلس فوقها. إجابتنا هي دور. الدور يُسمى رئيس الأركان. رئيس الأركان لا يحتاج ميزات. رئيس الأركان يحتاج ذاكرة.
+  </p>
+
+  <p class="callout">
+    <p class="callout-text">"فِلترا لا يجب أن تسجّل ما حدث فقط. بل أن تفهم ما يحدث، وتتذكر ما حدث، وتُهيّئ بهدوء ما يجب أن يحدث تاليًا."</p>
+  </p>
+
+  <!-- Chapter 2 -->
+  <div class="chapter-header">
+    <div class="chapter-number">الثانية — ما الذاكرة ليست إيّاه</div>
+    <h2 class="chapter-title">ليست تحليلات.</h2>
+    <div class="chapter-rule"></div>
+  </div>
+
+  <p class="body-text">
+    "التحليلات" أكثر كلمة مُستخدَمًا في برمجيات الرعاية الصحية، وأكثرها سوء فهم. التحليلات تسأل المدير سؤالًا. يفتح المدير لوحة، يختار نطاقًا زمنيًا، يختار مقياسًا، ويقرأ رقمًا. المدير قام بالعمل. البرنامج عرض نتيجة. هذه آلة حاسبة بخطوات إضافية.
+  </p>
+
+  <p class="body-text">
+    الذاكرة هي العكس. الذاكرة لا تنتظر أن تُسأل. الذاكرة تظهر الساعة 6:42 صباحًا، قبل أن يشرب الطبيب قهوته، وتقول: <em>ثلاثة من مرضى الثلاثاء لم يحضروا الأسبوع الماضي. اثنان منهم لديهم نمط. أرسلتُ لهم بالفعل. موعد واحد أصبح شاغرًا. عرضتُه على المريض التالي في قائمة الانتظار.</em> الطبيب لم يسأل. الطبيب لم يفتح شيئًا. الطبيب دخل عيادة بدأت تفكّر بالفعل.
+  </p>
+
+  <p class="body-text">
+    هذا هو الخط الذي يفصل بين أداة وزميل. الأداة تنتظر. الزميل يستبق. كل منتج تنافسه فِلترا هو أداة. معظمها أدوات ممتازة. لا واحد منهم زميل. تلك الفجوة ليست فجوة ميزات. إنها فجوة فئة. ونحن لا نهتم بسدّها. نحن نهتم بخلقها.
+  </p>
+
+  <!-- Chapter 3 -->
+  <div class="chapter-header">
+    <div class="chapter-number">الثالثة — ما الذاكرة هي إيّاه</div>
+    <h2 class="chapter-title">خمسة مبادئ.</h2>
+    <div class="chapter-rule"></div>
+  </div>
+
+  <p class="body-text">
+    إن كان للذاكرة أن تعني شيئًا، فيجب أن تعني شيئًا محددًا. هذه المبادئ الخمسة هي العقد. كل سطر كود يمسّ الذاكرة يجب أن يُقاس بها. كل قرار منتج يمسّ الذاكرة يجب أن يُبرَّر بها.
+  </p>
+
+  <div class="principle">
+    <div class="principle-label">المبدأ 01</div>
+    <p class="principle-title">الذاكرة غير مُنتظَرة.</p>
+    <p class="principle-body">رئيس الأركان لا ينتظر أن يُسأل. إن استجابت فِلترا للاستعلامات فقط، فهي محرك بحث. لحظة القيمة هي حين لا يكون الطبيب ينظر. المبدأ الأول أن الذاكرة تبدأ. تطفو على السطح. تتطوّع. تقول الشيء غير المريح قبل أن يضطر أحد لطلبه.</p>
+  </div>
+
+  <div class="principle">
+    <div class="principle-label">المبدأ 02</div>
+    <p class="principle-title">الذاكرة سياقية.</p>
+    <p class="principle-body">رقم بلا سياق هو ضجيج. "السيد خالد فاته موعده" هو بيانات. "السيد خالد فاته آخر موعدين يوم الثلاثاء، كلاهما بعد مناوبات ليلية، ومستوى السكر التراكمي لديه في تصاعد" هو ذاكرة. العبارة الثانية تغيّر ما سيفعله الطبيب تاليًا. الأولى لا. الذاكرة بلا سياق هي إشعار، والإشعارات مشكلة محلولة بالفعل.</p>
+  </div>
+
+  <div class="principle">
+    <div class="principle-label">المبدأ 03</div>
+    <p class="principle-title">الذاكرة تنسى، عمدًا.</p>
+    <p class="principle-body">نظام يتذكر كل شيء ليس ذاكرة. إنه أرشيف. والأرشيف عديم الفائدة الساعة التاسعة صباحًا يوم الثلاثاء. الذاكرة تختار. تنسى التافه. تُسقِط المنتهي. تُكرّم طلبات الحذف لا كالتزام امتثال بل كمبدأ تصميم. رئيس أركان لا ينسى شيئًا سيكون لا يُطاق. الأمر نفسه ينطبق على البرمجيات.</p>
+  </div>
+
+  <div class="principle">
+    <div class="principle-label">المبدأ 04</div>
+    <p class="principle-title">الذاكرة جماعية.</p>
+    <p class="principle-body">ذاكرة عيادة واحدة ضيقة. ذاكرة اثنتي عشرة عيادة شبكة. الأنماط غير المرئية لعيادة واحدة تصبح مرئية عبر كثيرات. مريض السكر الذي يعود بعد 87 يومًا. نمط عدم الحضور يوم الثلاثاء. نتيجة المختبر التي تتنبأ بالاستشفاء بعد أربعة أسابيع. هذه الأنماط تعيش بين العيادات، لا داخل واحدة. الذاكرة تتعمّق مع الاتساع. هذه هي الخندق الحقيقي لفِلترا، وليست ميزة. إنها خاصية للشبكة.</p>
+  </div>
+
+  <div class="principle">
+    <div class="principle-label">المبدأ 05</div>
+    <p class="principle-title">الذاكرة مُساءلة.</p>
+    <p class="principle-body">إن أظهرت فِلترا ذاكرة، يجب أن يستطيع الطبيب أن يسأل: <em>لماذا؟</em> وتجيب فِلترا، بلغة واضحة، بسلسلة الملاحظات التي أنتجت الاستنتاج. ذاكرة لا يمكن تحديّها هي إشاعة. ذاكرة يمكن تحديّها وتتبّعها وتصحيحها ورفضها هي زميل. المساءلة ليست ميزة. إنها ما يفصل رئيس الأركان عن محرك اقتراحات.</p>
+  </div>
+
+  <!-- Chapter 4 -->
+  <div class="chapter-header">
+    <div class="chapter-number">الرابعة — الأسئلة الصعبة</div>
+    <h2 class="chapter-title">حيث تلتقي الذاكرة بالثقة.</h2>
+    <div class="chapter-rule"></div>
+  </div>
+
+  <p class="body-text">
+    بيان لا يواجه أصعب أسئلته هو تسويق. هذه الأسئلة التي ستُطرح علينا، من الأطباء، ومن المرضى، ومن الجهات التنظيمية. وهي الأسئلة التي يجب أن نجيب عليها قبل أن نستحق استخدام كلمة "ذاكرة". ليست لدينا كل الإجابات بعد. لدينا مواقف. المواقف هي بداية الإجابات.
+  </p>
+
+  <div class="scenario">
+    <p class="scenario-q">حين يتوفى المريض، ماذا تتذكر فِلترا؟</p>
+    <p class="scenario-a">فِلترا لا تنسى المريض. تنسى الضجيج التشغيلي حوله — مواعيد الساعات، التذكيرات، دورة الفوترة. لكن الذاكرة السريرية، الأنماط، الأشياء التي تعلّمها الطبيب، تبقى. تبقى لأنها ستنقذ المريض التالي. ذاكرة تموت مع المريض ليست ذاكرة. إنها حفظ سجلات.</p>
+  </div>
+
+  <div class="scenario">
+    <p class="scenario-q">حين يطلب المريض نسيانه (نظام حماية البيانات، المادة 18)، كيف تلتزم فِلترا؟</p>
+    <p class="scenario-a">هوية المريض تُمحى. مواعيده، سجلاته، تفاصيل اتصاله — كلها تُمحى. لكن الأنماط التي أسهم بها في الذاكرة الجماعية تُحفظ بصورة مجمّعة، مجهولة الهوية، غير قابلة للعكس. ذاكرة العيادة لـ "مرضى مثل هذا المريض" تبقى. ذاكرة "هذا المريض" لا. هذا ليس حلًا بديلًا. هذا ما تعنيه الذاكرة فعلًا.</p>
+  </div>
+
+  <div class="scenario">
+    <p class="scenario-q">حين يخطئ الطبيب في التشخيص، هل تتعلّم الذاكرة منه؟</p>
+    <p class="scenario-a">لا. الذاكرة تراقب التصحيح. لا تُعمّم من خطأ واحد، لأن التعميم من خطأ واحد هو كيف يدخل التحيز إلى نظام. تتابع الذاكرة أن الطبيب راجع التشخيص. تُبرز المراجعة في خط زمن المريض. لا تُحدّث صامتة نموذجها عما "تعنيه هذه الأعراض عادةً". ذلك سيكون غطرسة. الذاكرة متواضعة بالتصميم.</p>
+  </div>
+
+  <div class="scenario">
+    <p class="scenario-q">حين تعارض الذاكرة الطبيب، من يفوز؟</p>
+    <p class="scenario-a">الطبيب. دائمًا. الذاكرة تُبرز. الطبيب يقرر. إن كانت الذاكرة محقة، سيراها الطبيب في الوقت المناسب. إن كانت مخطئة، غريزة الطبيب هي شبكة الأمان. رئيس أركان يبطش الطبيب ليس رئيس أركان. إنه مسئولية. هذا غير قابل للتفاوض.</p>
+  </div>
+
+  <!-- Chapter 5 -->
+  <div class="chapter-header">
+    <div class="chapter-number">الخامسة — الوعد</div>
+    <h2 class="chapter-title">ما ندين به للعيادة.</h2>
+    <div class="chapter-rule"></div>
+  </div>
+
+  <p class="body-text">
+    لن تعد فِلترا بتوفير وقت العيادة. الوقت ليس الوحدة الصحيحة. رئيس الأركان لا يوفّر وقت المدير التنفيذي. يغيّر ما ينفقه عليه وقت المدير. هذا ما ندين به للعيادة. ندين للطبيب بصباح يبدأ بأصعب القرارات قد أُطُّرت بالفعل. ندين للمدير بثلاثاء لا ينهار إلى فوضى الساعة 11 صباحًا. ندين للمريض بعيادة تتذكره كما يفعل الطبيب الجيد — بهدوء، بدقة، ودون حاجة لتذكير.
+  </p>
+
+  <p class="body-text">
+    ندين للجهة التنظيمية بنظام يستطيع تفسير نفسه. ندين للمدقق بمسار لا يحتاج تأويلًا. ندين للمنافس لاشيء. لا نبني فِلترا لنتفوق على برمجيات العيادات الأخرى. نبنيها لننجع فئة برمجيات العيادات بائدة. الفئة التي تحلّ محلها ليس لها اسم بعد. كنا نسميها نظام تشغيل الرعاية الصحية. سيُغني الاسم مؤقتًا.
+  </p>
+
+  <p class="callout">
+    <p class="callout-text">إن أصبنا الذاكرة، تصبح فِلترا زميلًا لا تتخيل العيادة العمل بدونه. إن أخطأناها، تصبح فِلترا لوحة معلومات أخرى. الفرق ليس هندسة. الفرق فلسفة. هذه الوثيقة هي الفلسفة.</p>
+  </p>
+
+  <p class="body-text" style="color: var(--c-text-3); font-size: 13px; margin-top: 48px; letter-spacing: 0.03em;">
+    — نهاية البيان. يُراجع كل ربع. يُتحدّى من كل من ينضم.
+  </p>
+
+</div>
+
+<!-- ============================== ENDING ============================== -->
+<div class="ending">
+  <div class="ending-top">
+    <span>فِلترا</span>
+    <span>البيان · 001</span>
+  </div>
+
+  <div class="ending-center">
+    <h1 class="ending-mark">العيادة<br>التي تتذكر.</h1>
+    <p class="ending-sub">— وتتذكر عمدًا.</p>
+    <div class="ending-rule"></div>
+  </div>
+
+  <div class="ending-bottom">
+    <span>داخلي · لا يُوزّع</span>
+    <span>2026 ← 2030</span>
+  </div>
+</div>
+
+</body>
+</html>

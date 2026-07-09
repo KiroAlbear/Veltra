@@ -1,0 +1,3 @@
+module.exports=[65769,a=>{"use strict";function b({children:a}){return a}a.s(["default",()=>b,"metadata",0,{title:"Start with Veltra — Sign Up",description:"Set up your clinic on Veltra in 3 steps. 14-day free trial. No credit card required. Cancel anytime.",openGraph:{title:"Start with Veltra",description:"The Clinic Operating System. 14-day free trial."},robots:{index:!1,follow:!0}}])}];
+
+//# sourceMappingURL=src_app_signup_layout_tsx_a4216e3a._.js.map

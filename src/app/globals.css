@@ -1,0 +1,510 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "../lib/print-template.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+/* ============================================
+   VELTRA — Beyond Apple Design System
+   Dark-first. Editorial. Atmospheric. Alive.
+   ============================================ */
+
+:root {
+  --radius: 0.875rem;
+
+  /* VELTRA Brand — exact hex, no oklch */
+  --veltra-emerald: #39CFA2;
+  --veltra-emerald-dark: #2BB888;
+  --veltra-emerald-light: #E6FAF3;
+  --veltra-emerald-glow: rgba(57, 207, 162, 0.35);
+  --veltra-midnight: #071323;
+  --veltra-midnight-deep: #050D1A;
+  --veltra-slate: #5B6772;
+  --veltra-warm-white: #FAFAF7;
+  --veltra-warm-gray: #F0F0F5;
+  --veltra-emerald-text: #0F7A5C;
+
+  /* Light mode — precise hex values (no oklch banding) */
+  --background: #FAF8F4;             /* warm off-white */
+  --foreground: #1A1F2E;             /* deep navy */
+  --card: #FFFFFF;                   /* pure white */
+  --card-foreground: #1A1F2E;
+  --popover: #FFFFFF;
+  --popover-foreground: #1A1F2E;
+  --primary: #1A9D7A;                /* darker emerald for AA contrast */
+  --primary-foreground: #FFFFFF;
+  --secondary: #F3F1ED;              /* warm gray */
+  --secondary-foreground: #1A1F2E;
+  --muted: #F3F1ED;
+  --muted-foreground: #6B7280;       /* slate gray */
+  --accent: #D4F5E8;                 /* light emerald */
+  --accent-foreground: #1A1F2E;
+  --destructive: #DC2626;            /* red */
+  --border: #E5E3DE;                 /* warm border */
+  --input: #E5E3DE;
+  --ring: #1A9D7A;
+  --chart-1: #39CFA2;
+  --chart-2: #2BB888;
+  --chart-3: #4A90D9;
+  --chart-4: #F5A623;
+  --chart-5: #DC2626;
+  --sidebar: #F7F5F1;               /* warm sidebar */
+  --sidebar-foreground: #1A1F2E;
+  --sidebar-primary: #1A9D7A;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: #D4F5E8;
+  --sidebar-accent-foreground: #1A1F2E;
+  --sidebar-border: #E5E3DE;
+  --sidebar-ring: #39CFA2;
+}
+
+/* Dark mode — deep premium, precise hex (no oklch banding) */
+.dark {
+  --background: #0A1521;             /* deep midnight with warmth */
+  --foreground: #E8E5DD;             /* warm off-white, not pure */
+  --card: #0F1B2A;                   /* lifted card surface */
+  --card-foreground: #E8E5DD;
+  --popover: #0F1B2A;
+  --popover-foreground: #E8E5DD;
+  --primary: #39CFA2;                /* emerald */
+  --primary-foreground: #0A1521;
+  --secondary: #162233;              /* subtle lifted */
+  --secondary-foreground: #E8E5DD;
+  --muted: #14202F;                  /* slightly darker than card */
+  --muted-foreground: #8B95A3;       /* cool slate */
+  --accent: #1A2D3F;                 /* dark emerald tint */
+  --accent-foreground: #E8E5DD;
+  --destructive: #EF4444;
+  --border: rgba(255, 255, 255, 0.08);
+  --input: rgba(255, 255, 255, 0.10);
+  --ring: #39CFA2;
+  --chart-1: #39CFA2;
+  --chart-2: #2BB888;
+  --chart-3: #4A90D9;
+  --chart-4: #F5A623;
+  --chart-5: #EF4444;
+  --sidebar: #08111C;               /* deepest sidebar */
+  --sidebar-foreground: #E8E5DD;
+  --sidebar-primary: #39CFA2;
+  --sidebar-primary-foreground: #08111C;
+  --sidebar-accent: #14202F;
+  --sidebar-accent-foreground: #E8E5DD;
+  --sidebar-border: rgba(255, 255, 255, 0.06);
+  --sidebar-ring: #39CFA2;
+  --veltra-emerald-text: #39CFA2;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11", "ss01", "cv05", "cv06", "tnum";
+    font-optical-sizing: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-inter), "Inter", -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", system-ui, sans-serif;
+    --font-cjk: "Noto Sans SC", "Noto Sans TC", "Noto Sans JP", "Noto Sans KR", "PingFang SC", "Hiragino Sans", "Microsoft YaHei", sans-serif;
+    letter-spacing: -0.014em;
+    font-optical-sizing: auto;
+    background-image:
+      radial-gradient(ellipse 140% 80% at 50% -10%, rgba(57, 207, 162, 0.10), transparent 50%),
+      radial-gradient(ellipse 100% 70% at 100% 100%, rgba(57, 207, 162, 0.05), transparent 50%),
+      radial-gradient(ellipse 80% 60% at 0% 50%, rgba(57, 207, 162, 0.03), transparent 50%);
+    background-attachment: fixed;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Dark mode: deep premium experience — NOT flat, NOT 8-bit */
+  .dark body {
+    background-color: #050D1A;
+    background-image:
+      radial-gradient(ellipse 140% 80% at 50% -10%, rgba(57, 207, 162, 0.08), transparent 40%),
+      radial-gradient(ellipse 100% 70% at 100% 100%, rgba(57, 207, 162, 0.04), transparent 40%),
+      radial-gradient(ellipse 80% 60% at 0% 50%, rgba(45, 100, 140, 0.06), transparent 40%),
+      radial-gradient(circle at 20% 80%, rgba(57, 207, 162, 0.02), transparent 30%);
+  }
+
+  /* CJK font auto-detection: when content contains CJK characters,
+     use the CJK font stack for better rendering.
+     This mirrors Apple's approach: SF Pro for Latin, PingFang/Noto for CJK. */
+  html[lang="zh"] body,
+  html[lang="ja"] body,
+  html[lang="ko"] body {
+    font-family: var(--font-inter), var(--font-cjk), "Inter", system-ui, sans-serif;
+  }
+
+  /* Apple-grade smooth scrolling */
+  * {
+    scroll-behavior: smooth;
+  }
+
+  /* Smooth focus transitions */
+  *:focus {
+    transition: outline-offset 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  /* Visible focus ring for keyboard navigation */
+  *:focus-visible {
+    outline: 2px solid var(--veltra-emerald);
+    outline-offset: 2px;
+  }
+
+  /* Respect reduced motion preference */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  /* Editorial type scale — serif + sans mix */
+  h1, .text-display {
+    font-size: 2.5rem;
+    line-height: 1.08;
+    font-weight: 600;
+    letter-spacing: -0.032em;
+  }
+  .text-editorial {
+    font-family: var(--font-instrument), "Instrument Serif", Georgia, serif !important;
+    font-weight: 400;
+    letter-spacing: -0.018em;
+  }
+  .text-editorial-italic {
+    font-family: var(--font-instrument), "Instrument Serif", Georgia, serif !important;
+    font-style: italic;
+    font-weight: 400;
+    letter-spacing: -0.012em;
+  }
+  h2, .text-title {
+    font-size: 1.25rem;
+    line-height: 1.3;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+  h3, .text-heading {
+    font-size: 1rem;
+    line-height: 1.3;
+    font-weight: 600;
+    letter-spacing: -0.015em;
+  }
+  .text-body {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+  }
+  .text-caption {
+    font-size: 0.8125rem;
+    line-height: 1.55;
+    font-weight: 400;
+    letter-spacing: -0.005em;
+  }
+  .text-micro {
+    font-size: 0.6875rem;
+    line-height: 1.4;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .tabular { font-variant-numeric: tabular-nums; }
+
+  /* RTL auto-flip: when dir="rtl", ml-* and mr-* swap automatically.
+     This is the Apple approach — components use ml/mr, and RTL flips them. */
+  [dir="rtl"] {
+    /* Flip horizontal margins */
+  }
+  [dir="rtl"] .ml-0 { margin-left: 0; margin-right: 0; }
+  [dir="rtl"] .ml-1 { margin-left: 0; margin-right: 0.25rem; }
+  [dir="rtl"] .ml-1\.5 { margin-left: 0; margin-right: 0.375rem; }
+  [dir="rtl"] .ml-2 { margin-left: 0; margin-right: 0.5rem; }
+  [dir="rtl"] .ml-3 { margin-left: 0; margin-right: 0.75rem; }
+  [dir="rtl"] .ml-4 { margin-left: 0; margin-right: 1rem; }
+  [dir="rtl"] .ml-5 { margin-left: 0; margin-right: 1.25rem; }
+  [dir="rtl"] .ml-6 { margin-left: 0; margin-right: 1.5rem; }
+  [dir="rtl"] .ml-8 { margin-left: 0; margin-right: 2rem; }
+  [dir="rtl"] .ml-auto { margin-left: 0; margin-right: auto; }
+
+  [dir="rtl"] .mr-0 { margin-right: 0; margin-left: 0; }
+  [dir="rtl"] .mr-1 { margin-right: 0; margin-left: 0.25rem; }
+  [dir="rtl"] .mr-1\.5 { margin-right: 0; margin-left: 0.375rem; }
+  [dir="rtl"] .mr-2 { margin-right: 0; margin-left: 0.5rem; }
+  [dir="rtl"] .mr-3 { margin-right: 0; margin-left: 0.75rem; }
+  [dir="rtl"] .mr-4 { margin-right: 0; margin-left: 1rem; }
+  [dir="rtl"] .mr-5 { margin-right: 0; margin-left: 1.25rem; }
+  [dir="rtl"] .mr-6 { margin-right: 0; margin-left: 1.5rem; }
+
+  /* Flip horizontal padding - pl and pr swap */
+  [dir="rtl"] .pl-3 { padding-left: 0; padding-right: 0.75rem; }
+  [dir="rtl"] .pl-4 { padding-left: 0; padding-right: 1rem; }
+  [dir="rtl"] .pl-10 { padding-left: 0; padding-right: 2.5rem; }
+
+  [dir="rtl"] .pr-3 { padding-right: 0; padding-left: 0.75rem; }
+  [dir="rtl"] .pr-4 { padding-right: 0; padding-left: 1rem; }
+  [dir="rtl"] .pr-10 { padding-right: 0; padding-left: 2.5rem; }
+
+  /* Flip absolute left/right positioning */
+  [dir="rtl"] .left-0 { left: auto; right: 0; }
+  [dir="rtl"] .left-1\/2 { left: auto; right: 50%; }
+  [dir="rtl"] .left-1\/4 { left: auto; right: 25%; }
+  [dir="rtl"] .left-3 { left: auto; right: 0.75rem; }
+  [dir="rtl"] .left-3\.5 { left: auto; right: 0.875rem; }
+
+  [dir="rtl"] .right-0 { right: auto; left: 0; }
+  [dir="rtl"] .right-1\/4 { right: auto; left: 25%; }
+  [dir="rtl"] .right-3 { right: auto; left: 0.75rem; }
+  [dir="rtl"] .right-4 { right: auto; left: 1rem; }
+  [dir="rtl"] .right-5 { right: auto; left: 1.25rem; }
+
+  /* RTL: flip right-pointing arrows to point left (Arabic convention).
+     Apple does this on apple.com/sa — arrows point in the reading direction. */
+  [dir="rtl"] .lucide-arrow-right {
+    transform: scaleX(-1);
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(91, 103, 114, 0.2);
+    border-radius: 9999px;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(91, 103, 114, 0.4);
+    background-clip: padding-box;
+    border: 2px solid transparent;
+  }
+
+  /* Selection */
+  ::selection {
+    background: var(--veltra-emerald-glow);
+    color: var(--foreground);
+  }
+}
+
+@layer utilities {
+  /* Brand */
+  .bg-veltra-emerald { background-color: var(--veltra-emerald); }
+  .bg-veltra-emerald-dark { background-color: var(--veltra-emerald-dark); }
+  .bg-veltra-emerald-light { background-color: var(--veltra-emerald-light); }
+  .text-veltra-emerald { color: var(--veltra-emerald-text); }
+  .text-veltra-midnight { color: var(--veltra-midnight); }
+  .text-veltra-slate { color: var(--veltra-slate); }
+  .bg-veltra-warm-white { background-color: var(--veltra-warm-white); }
+  .bg-veltra-midnight { background-color: var(--veltra-midnight); }
+  .border-veltra-emerald { border-color: var(--veltra-emerald); }
+
+  /* Atmospheric depth */
+  .veltra-ambient {
+    background-image:
+      radial-gradient(ellipse 60% 40% at 30% 0%, rgba(57, 207, 162, 0.08), transparent 70%),
+      radial-gradient(ellipse 50% 30% at 80% 100%, rgba(57, 207, 162, 0.04), transparent 70%);
+  }
+  .veltra-gradient-hero {
+    background:
+      radial-gradient(ellipse 80% 50% at 50% -20%, rgba(57, 207, 162, 0.12), transparent 70%),
+      linear-gradient(180deg, rgba(57, 207, 162, 0.03) 0%, transparent 100%);
+  }
+
+  /* Glass surfaces — premium backdrop blur */
+  .veltra-glass {
+    background: rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  .veltra-glass-strong {
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(40px) saturate(200%);
+    -webkit-backdrop-filter: blur(40px) saturate(200%);
+    border: 1px solid rgba(255, 255, 255, 0.10);
+  }
+  :root:not(.dark) .veltra-glass {
+    background: rgba(255, 255, 255, 0.72);
+    border: 1px solid rgba(7, 19, 35, 0.06);
+  }
+  :root:not(.dark) .veltra-glass-strong {
+    background: rgba(255, 255, 255, 0.88);
+    border: 1px solid rgba(7, 19, 35, 0.08);
+  }
+  /* Dark mode glass: richer, warmer, not flat */
+  .dark .veltra-glass {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  .dark .veltra-glass-strong {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.07) 0%, rgba(255, 255, 255, 0.03) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.10);
+  }
+
+  /* Colored shadows — depth with brand */
+  .veltra-shadow-sm {
+    box-shadow:
+      0 1px 2px rgba(0, 0, 0, 0.04),
+      0 0 0 1px rgba(255, 255, 255, 0.03);
+  }
+  .veltra-shadow {
+    box-shadow:
+      0 1px 3px rgba(0, 0, 0, 0.12),
+      0 4px 16px rgba(0, 0, 0, 0.08),
+      0 0 0 1px rgba(255, 255, 255, 0.04);
+  }
+  .veltra-shadow-lg {
+    box-shadow:
+      0 2px 8px rgba(0, 0, 0, 0.15),
+      0 12px 40px rgba(0, 0, 0, 0.12),
+      0 0 0 1px rgba(255, 255, 255, 0.05);
+  }
+  .veltra-shadow-emerald {
+    box-shadow:
+      0 4px 24px rgba(57, 207, 162, 0.15),
+      0 0 0 1px rgba(57, 207, 162, 0.1);
+  }
+  .veltra-shadow-hover {
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .veltra-shadow-hover:hover {
+    box-shadow:
+      0 4px 12px rgba(0, 0, 0, 0.15),
+      0 16px 48px rgba(0, 0, 0, 0.15),
+      0 0 0 1px rgba(57, 207, 162, 0.2);
+    transform: translateY(-2px);
+  }
+
+  /* LIVE pulse — refined, subtle */
+  .veltra-live-dot {
+    position: relative;
+    display: inline-flex;
+    width: 6px;
+    height: 6px;
+    border-radius: 9999px;
+    background: var(--veltra-emerald);
+    box-shadow: 0 0 8px var(--veltra-emerald-glow);
+  }
+  .veltra-live-dot::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 9999px;
+    background: var(--veltra-emerald);
+    animation: veltra-ping 2.4s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+  }
+  @keyframes veltra-ping {
+    75%, 100% { transform: scale(2.8); opacity: 0; }
+  }
+
+  /* Smooth transitions */
+  .veltra-transition {
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .veltra-transition-slow {
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  /* Scrollbar utilities */
+  .veltra-no-scrollbar::-webkit-scrollbar { display: none; }
+  .veltra-no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+  /* Gradient text — for key moments */
+  .veltra-text-gradient {
+    background: linear-gradient(135deg, var(--veltra-emerald) 0%, #5DEVB8 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* Noise texture — for atmosphere */
+  .veltra-noise {
+    position: relative;
+  }
+  .veltra-noise::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.03 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    opacity: 0.4;
+    pointer-events: none;
+    mix-blend-mode: overlay;
+  }
+}
+
+/* Veltra Professional Print Template — imported at top of file */
+
+
+/* ===== Accessibility: Respect prefers-reduced-motion ===== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  /* Disable pulsing dots and live indicators */
+  .veltra-live-dot {
+    animation: none !important;
+    opacity: 0.6 !important;
+  }
+
+  /* Disable framer-motion infinite loops */
+  [data-framer-motion] {
+    transform: none !important;
+  }
+}
+
+/* ===== Scroll padding for anchor links (sticky nav offset) ===== */
+html {
+  scroll-padding-top: 80px;
+}

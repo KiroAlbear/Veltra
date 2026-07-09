@@ -1,0 +1,53 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# VELTRA — Supabase Project Configuration
+#
+# 1. Create project at https://app.supabase.com/new
+#    - Name: veltra-prod
+#    - Region: Singapore (closest to Vercel sin1)
+#    - Password: use a strong generated password (SAVE IT!)
+#
+# 2. Get credentials from:
+#    Project Settings → Database → Connection string
+#
+# 3. Set these in your .env.local and Vercel env vars
+# ─────────────────────────────────────────────────────────────────────────────
+
+project_id = "veltra-prod"
+
+[api]
+enabled = true
+port = 54321
+schemas = ["public", "graphql_public"]
+extra_search_path = ["public", "extensions"]
+max_rows = 1000
+
+[db]
+port = 54322
+shadow_port = 54320
+major_version = 15
+
+[db.pooler]
+enabled = true
+port = 6543
+pool_mode = "transaction"
+default_pool_size = 20
+max_client_conn = 100
+
+[auth]
+enabled = true
+site_url = "https://veltrahealth.co"
+additional_redirect_urls = ["https://veltra.vercel.app"]
+jwt_expiry = 3600
+enable_signup = false
+
+[auth.email]
+enable_signup = false
+double_confirm_changes = true
+enable_confirmations = true
+
+[storage]
+enabled = true
+file_size_limit = "50MiB"
+
+[realtime]
+enabled = true

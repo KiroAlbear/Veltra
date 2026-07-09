@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>A Day With Veltra — Timeline Section Spec</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+@page {
+  size: 720px 1020px;
+  margin: 0;
+}
+:root {
+  --c-bg: #0A0A0A;
+  --c-bg-2: #141414;
+  --c-bg-3: #1C1B17;
+  --c-text: #F5F1EA;
+  --c-text-2: #A39C8E;
+  --c-text-3: #6B6558;
+  --c-accent: #D4A574;
+  --c-accent-2: #8B6B3D;
+  --c-rule: #2A2823;
+  --c-mono: 'JetBrains Mono', 'Liberation Mono', monospace;
+}
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 720px;
+  background: var(--c-bg);
+  color: var(--c-text);
+  font-family: 'Inter', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  font-weight: 400;
+}
+@media screen {
+  html {
+    height: auto;
+    display: flex;
+    justify-content: center;
+    background: #222;
+  }
+  body {
+    transform-origin: top center;
+    margin: 20px auto;
+    box-shadow: 0 0 40px rgba(0,0,0,0.5);
+  }
+}
+
+/* ============ COVER ============ */
+.cover {
+  width: 720px;
+  height: 1020px;
+  box-sizing: border-box;
+  padding: 64px 60px;
+  break-after: page;
+  overflow: hidden;
+  background: var(--c-bg);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.cover-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.cover-mark {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.32em;
+  color: var(--c-text-2);
+  text-transform: uppercase;
+}
+.cover-edition {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  color: var(--c-text-3);
+  text-align: right;
+  line-height: 1.6;
+}
+.cover-center {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 40px 0;
+}
+.cover-eyebrow {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.4em;
+  color: var(--c-accent);
+  text-transform: uppercase;
+  margin-bottom: 28px;
+}
+.cover-title {
+  font-family: 'Playfair Display', serif;
+  font-weight: 400;
+  font-size: 86px;
+  line-height: 0.98;
+  color: var(--c-text);
+  letter-spacing: -0.03em;
+  margin: 0 0 8px 0;
+}
+.cover-title .italic {
+  font-style: italic;
+}
+.cover-subtitle {
+  font-size: 17px;
+  font-weight: 300;
+  line-height: 1.55;
+  color: var(--c-text-2);
+  margin-top: 32px;
+  max-width: 520px;
+  letter-spacing: -0.005em;
+}
+.cover-bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: flex-start;
+  border-top: 1px solid var(--c-rule);
+  padding-top: 40px;
+}
+.cover-bottom-left {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  color: var(--c-text-3);
+  text-transform: uppercase;
+}
+.cover-bottom-right {
+  font-family: 'JetBrains Mono', 'Liberation Mono', monospace;
+  font-size: 11px;
+  color: var(--c-text-2);
+  letter-spacing: 0.05em;
+  margin-top: 4px;
+}
+
+/* ============ BODY ============ */
+.main-content {
+  padding: 76px 60px 56px 60px;
+}
+.chapter-header {
+  break-after: avoid;
+  break-inside: avoid;
+  margin-top: 36px;
+  margin-bottom: 24px;
+}
+.chapter-header:first-child {
+  margin-top: 0;
+}
+.chapter-number {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 13px;
+  color: var(--c-accent);
+  margin-bottom: 14px;
+}
+.chapter-title {
+  font-family: 'Playfair Display', serif;
+  font-weight: 400;
+  font-size: 34px;
+  line-height: 1.1;
+  color: var(--c-text);
+  letter-spacing: -0.02em;
+  margin: 0 0 44px 0;
+}
+.chapter-rule {
+  width: 36px;
+  height: 1px;
+  background: var(--c-accent);
+  margin-bottom: 48px;
+}
+.body-text {
+  font-size: 14px;
+  line-height: 1.72;
+  color: var(--c-text);
+  margin: 0 0 14px 0;
+  letter-spacing: -0.003em;
+}
+.body-text.lead {
+  font-size: 16.5px;
+  line-height: 1.6;
+  font-weight: 300;
+  color: var(--c-text);
+  margin-bottom: 20px;
+}
+.body-text em {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  color: var(--c-accent);
+}
+
+/* ============ BEAT (Timeline Item) ============ */
+.beat {
+  break-inside: avoid;
+  display: grid;
+  grid-template-columns: 90px 1fr;
+  gap: 24px;
+  padding: 18px 0;
+  border-top: 1px solid var(--c-rule);
+}
+.beat:first-of-type {
+  border-top: 1px solid var(--c-accent);
+}
+.beat-time {
+  font-family: 'JetBrains Mono', 'Liberation Mono', monospace;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--c-accent);
+  letter-spacing: 0.05em;
+  padding-top: 2px;
+}
+.beat-time small {
+  display: block;
+  font-size: 10px;
+  color: var(--c-text-3);
+  font-weight: 400;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-top: 4px;
+}
+.beat-content {
+  padding-bottom: 4px;
+}
+.beat-event {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 16px;
+  line-height: 1.35;
+  color: var(--c-text);
+  margin: 0 0 8px 0;
+  letter-spacing: -0.005em;
+}
+.beat-response {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--c-text-2);
+  margin: 0 0 8px 0;
+}
+.beat-copy {
+  font-family: 'JetBrains Mono', 'Liberation Mono', monospace;
+  font-size: 11px;
+  line-height: 1.55;
+  color: var(--c-text-2);
+  background: var(--c-bg-2);
+  padding: 10px 12px;
+  border-left: 2px solid var(--c-accent-2);
+  margin: 8px 0 0 0;
+  white-space: pre-wrap;
+}
+.beat-copy::before {
+  content: "VELTRA · ";
+  color: var(--c-text-3);
+  font-size: 10px;
+  letter-spacing: 0.15em;
+}
+
+/* ============ SPEC BLOCK ============ */
+.spec-block {
+  break-inside: avoid;
+  margin: 24px 0;
+  padding: 22px 24px;
+  background: var(--c-bg-2);
+  border-left: 2px solid var(--c-accent);
+}
+.spec-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  color: var(--c-accent);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.spec-title {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 18px;
+  color: var(--c-text);
+  margin: 0 0 8px 0;
+}
+.spec-body {
+  font-size: 13px;
+  line-height: 1.65;
+  color: var(--c-text-2);
+  margin: 0;
+}
+.spec-body code {
+  font-family: 'JetBrains Mono', 'Liberation Mono', monospace;
+  font-size: 11.5px;
+  background: var(--c-bg-3);
+  padding: 1px 6px;
+  border-radius: 2px;
+  color: var(--c-accent);
+}
+
+/* ============ FORBIDDEN WORDS ============ */
+.forbidden {
+  break-inside: avoid;
+  margin: 20px 0;
+  padding: 16px 20px;
+  border: 1px dashed var(--c-rule);
+}
+.forbidden-title {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  color: var(--c-text-3);
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.forbidden-list {
+  font-family: 'JetBrains Mono', 'Liberation Mono', monospace;
+  font-size: 11px;
+  color: var(--c-text-2);
+  line-height: 1.7;
+  margin: 0;
+}
+.forbidden-list span {
+  color: #C97A5A;
+}
+
+/* ============ ENDING ============ */
+.ending {
+  width: 720px;
+  height: 1020px;
+  box-sizing: border-box;
+  padding: 64px 60px;
+  break-before: page;
+  overflow: hidden;
+  background: var(--c-bg);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.ending-top {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  color: var(--c-text-3);
+  text-transform: uppercase;
+}
+.ending-center {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.ending-quote {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 34px;
+  line-height: 1.3;
+  color: var(--c-text);
+  margin: 0;
+  letter-spacing: -0.015em;
+}
+.ending-attr {
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  color: var(--c-text-3);
+  text-transform: uppercase;
+  margin-top: 48px;
+}
+.ending-rule {
+  width: 36px;
+  height: 1px;
+  background: var(--c-accent);
+  margin-top: 48px;
+}
+.ending-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  color: var(--c-text-3);
+  text-transform: uppercase;
+}
+</style>
+</head>
+<body>
+
+<!-- ============================== COVER ============================== -->
+<div class="cover">
+  <div class="cover-top">
+    <div class="cover-mark">VELTRA &nbsp;·&nbsp; DESIGN SPEC 002</div>
+    <div class="cover-edition">v1.0<br>For Engineering</div>
+  </div>
+
+  <div class="cover-center">
+    <div class="cover-eyebrow">The Timeline Section</div>
+    <h1 class="cover-title">A Day With<br>Veltra.</h1>
+    <p class="cover-subtitle">
+      Replaces the dashboard mockup on the homepage.<br>
+      Nine beats. One Tuesday. From 6:42 AM to 6:00 PM.<br>
+      What the clinic looks like when Memory is doing its job.
+    </p>
+  </div>
+
+  <div class="cover-bottom">
+    <div class="cover-bottom-left">Timeline, not Dashboard</div>
+    <div class="cover-bottom-right">Spec → Build → Ship</div>
+  </div>
+</div>
+
+<!-- ============================== BODY ============================== -->
+<div class="main-content">
+
+  <!-- Chapter 1: Concept -->
+  <div class="chapter-header">
+    <div class="chapter-number">I &nbsp;—&nbsp; Concept</div>
+    <h2 class="chapter-title">Why a timeline,<br>not a dashboard.</h2>
+    <div class="chapter-rule"></div>
+  </div>
+
+  <p class="body-text lead">
+    A dashboard answers the question <em>what is happening right now</em>. A timeline answers a different question: <em>what has Veltra been doing on my behalf</em>. The first question belongs to the manager. The second question belongs to the doctor. We are building for the doctor.
+  </p>
+
+  <p class="body-text">
+    A dashboard is a wall of numbers. It implies that the user should choose one. A timeline is a story. It implies that the user should read. Veltra is not a control panel. Veltra is a colleague. And a colleague, at the end of the day, does not hand you a spreadsheet. A colleague tells you what they did.
+  </p>
+
+  <p class="body-text">
+    The Timeline section on the homepage replaces the existing OS mockup. It shows one hypothetical Tuesday at one hypothetical clinic. Nine beats. Each beat is a moment where Veltra acted — without being asked, without being opened, without a click. The beats are not features. They are behaviors. The visitor should finish reading and think: <em>oh, this is not software. This is someone who works here.</em>
+  </p>
+
+  <!-- Chapter 2: The Day -->
+  <div class="chapter-header">
+    <div class="chapter-number">II &nbsp;—&nbsp; The Day</div>
+    <h2 class="chapter-title">Tuesday, October 14.<br>Nine beats.</h2>
+    <div class="chapter-rule"></div>
+  </div>
+
+  <p class="body-text">
+    The copy below is final. Treat each beat as a single typographic unit. Do not paraphrase. Do not abbreviate. The voice is observational, third-person, and quiet. Veltra never says <em>I</em>. Veltra says what it observed, and what it did, in the past tense. The system is not a personality. The system is a witness.
+  </p>
+
+  <!-- Beat 1 -->
+  <div class="beat">
+    <div class="beat-time">06:42<small>AM</small></div>
+    <div class="beat-content">
+      <p class="beat-event">Pattern detected. Three Tuesday no-shows, two weeks running.</p>
+      <p class="beat-response">Veltra cross-referenced the last eight Tuesdays. Three patients repeat the absence. Two of them schedule after night shifts. One has a HbA1c trend moving the wrong direction. The slot loss is not random. It is structural.</p>
+      <div class="beat-copy">2 of 3 no-show patients show a 14-day pattern. Slot loss is recurring, not random. Suggested: reschedule with morning preference.</div>
+    </div>
+  </div>
+
+  <!-- Beat 2 -->
+  <div class="beat">
+    <div class="beat-time">06:43<small>AM</small></div>
+    <div class="beat-content">
+      <p class="beat-event">Action taken. Reschedule messages sent, before the clinic opens.</p>
+      <p class="beat-response">Two WhatsApp messages. Two SMS fallbacks. Tone: warm, short, in the patient's preferred language. No discounts offered. No urgency manufactured. The message assumes the patient wants to come back. They usually do.</p>
+      <div class="beat-copy">Mrs. Hala — Wednesday 9:30 AM offered. Mr. Tariq — Thursday 8:00 AM offered. Both accepted within 22 minutes.</div>
+    </div>
+  </div>
+
+  <!-- Beat 3 -->
+  <div class="beat">
+    <div class="beat-time">06:44<small>AM</small></div>
+    <div class="beat-content">
+      <p class="beat-event">Waitlist patient #4 reached. Slot filled before the phone rings.</p>
+      <p class="beat-response">The opened slot is offered to the next waitlisted patient whose visit type matches. Veltra does not ask the receptionist. Veltra asks the patient. The receptionist sees the result, not the request. The slot is filled in under four minutes.</p>
+      <div class="beat-copy">Slot 10:15 AM → Mr. Yusuf (waitlist #4, follow-up, 20-min visit). Confirmed. Receptionist notified, not asked.</div>
+    </div>
+  </div>
+
+  <!-- Beat 4 -->
+  <div class="beat">
+    <div class="beat-time">07:15<small>AM</small></div>
+    <div class="beat-content">
+      <p class="beat-event">Pre-visit preparation. Chart readied before the patient arrives.</p>
+      <p class="beat-response">Mr. Khalid walks in at 9:00. At 7:15, Veltra has already pulled his last three visits, his last two lab results, his outstanding prescription, and the cardiology note from the referral. The doctor does not open a chart. The doctor walks into a chart that is already open.</p>
+      <div class="beat-copy">Mr. Khalid · 09:00 · Chart prepared. Last visit: 87 days ago. Insulin overdue. Cardiology note pending review.</div>
+    </div>
+  </div>
+
+  <!-- Beat 5 -->
+  <div class="beat">
+    <div class="beat-time">09:00<small>AM</small></div>
+    <div class="beat-content">
+      <p class="beat-event">Patient arrives. Check-in is a glance, not a process.</p>
+      <p class="beat-response">The patient is recognized by their appointment, not their paperwork. Veltra marks them arrived, alerts the nurse, and starts the wait-time clock. The receptionist did not type. The patient did not fill a form. The clinic did not lose ninety seconds per visit, which is forty-five minutes a day, which is three hundred hours a year.</p>
+      <div class="beat-copy">Mr. Khalid · Arrived · 09:02. Nurse notified. Wait clock started. Estimated room time: 4 minutes.</div>
+    </div>
+  </div>
+
+  <!-- Beat 6 -->
+  <div class="beat">
+    <div class="beat-time">12:30<small>PM</small></div>
+    <div class="beat-content">
+      <p class="beat-event">Lab result arrives. Veltra links it, before the doctor sees it.</p>
+      <p class="beat-response">The result does not arrive in an inbox. It arrives in context. Veltra places it next to the last result, the last visit, the last prescription. The trend is visible without a click. The doctor does not interpret a number. The doctor interprets a direction.</p>
+      <div class="beat-copy">Mr. Khalid · HbA1c · 8.4% (was 7.9%). Trend: ↑ over 90 days. Linked to insulin overdue. Cardiology follow-up recommended.</div>
+    </div>
+  </div>
+
+  <!-- Beat 7 -->
+  <div class="beat">
+    <div class="beat-time">16:15<small>PM</small></div>
+    <div class="beat-content">
+      <p class="beat-event">Follow-ups proposed. Four patients, four moments to act.</p>
+      <p class="beat-response">Veltra identifies four patients seen today who match a follow-up pattern. Not because of a rule. Because of memory. Each patient's follow-up window is set by their own history, not by a default. The doctor reviews in twelve seconds. Approves three. Defers one.</p>
+      <div class="beat-copy">4 follow-ups proposed · 3 approved · 1 deferred. Windows: 30 / 60 / 90 / 14 days. Each based on patient's own return pattern.</div>
+    </div>
+  </div>
+
+  <!-- Beat 8 -->
+  <div class="beat">
+    <div class="beat-time">18:00<small>PM</small></div>
+    <div class="beat-content">
+      <p class="beat-event">End of day. The clinic is summarized, not just closed.</p>
+      <p class="beat-response">Veltra does not produce a report. Veltra produces a paragraph. Three appointments converted from no-show. One waitlist fill. One pre-visit chart that saved eleven minutes. One lab trend flagged. The doctor reads it on the way out. The clinic is closed in the doctor's mind, not just in the system.</p>
+      <div class="beat-copy">Tuesday · 18:00 · 32 visits · 3 no-shows recovered · 1 waitlist filled · 1 trend flagged · 11 minutes saved on chart prep.</div>
+    </div>
+  </div>
+
+  <!-- Beat 9 -->
+  <div class="beat">
+    <div class="beat-time">18:01<small>PM</small></div>
+    <div class="beat-content">
+      <p class="beat-event">Tomorrow prepared. Before today is even over.</p>
+      <p class="beat-response">Veltra has already read Wednesday's schedule. Two patients need chart prep. One slot is fragile — the patient has missed twice. The first coffee of the morning will be the only thing the doctor has to wait for.</p>
+      <div class="beat-copy">Wednesday · 09:00 · 2 charts prepared · 1 fragile slot flagged · 1 reschedule offer queued.</div>
+    </div>
+  </div>
+
+  <!-- Chapter 3: Design Spec -->
+  <div class="chapter-header">
+    <div class="chapter-number">III &nbsp;—&nbsp; Design Specification</div>
+    <h2 class="chapter-title">Layout, type, motion.</h2>
+    <div class="chapter-rule"></div>
+  </div>
+
+  <p class="body-text">
+    The Timeline is rendered as a single vertical column on the homepage. Time on the left, in monospace. Event in italic serif on the right. System response in body sans. A monospace callout strip in the dark surface color closes each beat. The whole section scrolls. There is no carousel. There is no tab. There is no "click to see more."
+  </p>
+
+  <div class="spec-block">
+    <div class="spec-label">Layout</div>
+    <p class="spec-title">Two columns. One rail. No cards.</p>
+    <p class="spec-body">Grid: <code>90px 1fr</code> with <code>24px</code> gap. Left rail holds time + AM/PM. Right column holds the beat. A 1px rule between beats. The first beat's rule is the accent color. The last beat has no rule. No card backgrounds. No shadows. No rounded corners. The Timeline is a document, not a UI.</p>
+  </div>
+
+  <div class="spec-block">
+    <div class="spec-label">Typography</div>
+    <p class="spec-title">Two faces. Three roles.</p>
+    <p class="spec-body">Time: <code>JetBrains Mono · 12px · 500</code>. Event: <code>Playfair Display Italic · 16px</code>. Response: <code>Inter · 13px · 400</code>. Callout: <code>JetBrains Mono · 11px</code> on a dark surface. No other faces. No other sizes. No bold for emphasis — italic only. If a beat needs bold to land, the beat is wrong.</p>
+  </div>
+
+  <div class="spec-block">
+    <div class="spec-label">Color</div>
+    <p class="spec-title">Dark by default. Light on demand.</p>
+    <p class="spec-body">Background: <code>#0A0A0A</code>. Text: <code>#F5F1EA</code>. Muted: <code>#A39C8E</code>. Accent: <code>#D4A574</code>. The Timeline lives in dark mode on the homepage, regardless of site theme. It is the one section that breaks the light default. That break is intentional. It signals: <em>this is the part that does the work</em>.</p>
+  </div>
+
+  <div class="spec-block">
+    <div class="spec-label">Motion</div>
+    <p class="spec-title">Stagger. Fade. Slide. Stop.</p>
+    <p class="spec-body">Framer Motion. Each beat enters with <code>opacity: 0 → 1</code> and <code>y: 8px → 0</code> over <code>400ms</code> with <code>easeOut</code>. Stagger: <code>80ms</code> between beats. The scroll trigger fires when the beat is <code>60%</code> in viewport. No infinite loops. No autoplay. Once a beat has entered, it stays. The Timeline is read, not performed.</p>
+  </div>
+
+  <div class="spec-block">
+    <div class="spec-label">Interaction</div>
+    <p class="spec-title">Pause on hover. That is all.</p>
+    <p class="spec-body">No click. No expand. No tooltip. If the visitor wants more, they scroll. If they want less, they scroll past. The Timeline does not chase attention. It rewards it. On mobile, the same layout collapses to <code>72px 1fr</code>. Nothing else changes.</p>
+  </div>
+
+  <!-- Chapter 4: Copy Rules -->
+  <div class="chapter-header">
+    <div class="chapter-number">IV &nbsp;—&nbsp; Copy Rules</div>
+    <h2 class="chapter-title">The voice of the witness.</h2>
+    <div class="chapter-rule"></div>
+  </div>
+
+  <p class="body-text">
+    The voice is the product. If the voice sounds like marketing, Veltra sounds like marketing. If the voice sounds like a colleague, Veltra sounds like a colleague. The rules below are not stylistic preferences. They are non-negotiable.
+  </p>
+
+  <div class="forbidden">
+    <div class="forbidden-title">Forbidden Vocabulary</div>
+    <p class="forbidden-list">
+      <span>AI</span> · <span>smart</span> · <span>intelligent</span> · <span>powered by</span> · <span>seamless</span> · <span>leverage</span> · <span>automagically</span> · <span>next-gen</span> · <span>revolutionary</span> · <span>game-changing</span> · <span>cutting-edge</span> · <span>innovative</span> · <span>disruptive</span> · <span>synergy</span>
+    </p>
+  </div>
+
+  <p class="body-text">
+    Veltra does not say <em>I</em>. Veltra does not say <em>we</em>. Veltra says what was observed, and what was done. Past tense. Third person. The system is the subject, never the speaker. A Chief of Staff does not announce themselves. A Chief of Staff reports.
+  </p>
+
+  <p class="body-text">
+    Each beat is two sentences of voice, plus one line of callout. The voice is the story. The callout is the receipt. The visitor reads the story. The buyer reads the receipt. Both leave satisfied.
+  </p>
+
+  <!-- Chapter 5: Implementation -->
+  <div class="chapter-header">
+    <div class="chapter-number">V &nbsp;—&nbsp; Implementation</div>
+    <h2 class="chapter-title">For the engineer.</h2>
+    <div class="chapter-rule"></div>
+  </div>
+
+  <p class="body-text">
+    The Timeline is one React component. It receives an array of nine beats. It renders them in order. It does not fetch. It does not paginate. It does not lazy-load the content — only the entry animation. The whole section is server-rendered. Motion is progressive enhancement. If JavaScript fails, the Timeline is still readable. If motion fails, the Timeline is still read.
+  </p>
+
+  <div class="spec-block">
+    <div class="spec-label">Stack</div>
+    <p class="spec-title">Next.js · Framer Motion · That is all.</p>
+    <p class="spec-body">Server Component renders the beats. Client Component handles the motion. <code>useInView</code> from <code>framer-motion</code> with <code>once: true</code> and <code>amount: 0.6</code>. No GSAP. No Lottie. No video. If the motion can be done in CSS, do it in CSS. If it cannot, do it in Framer Motion. Nothing else is allowed in this section.</p>
+  </div>
+
+  <div class="spec-block">
+    <div class="spec-label">Accessibility</div>
+    <p class="spec-title">Keyboard, screen reader, reduced motion.</p>
+    <p class="spec-body">Each beat is a <code>&lt;article&gt;</code> with <code>aria-label</code> set to the time and event. The callout is <code>role="status"</code>. <code>prefers-reduced-motion</code> disables all entry animation — beats appear instantly. The Timeline must be fully readable in <code>links</code> mode, in high-contrast mode, and in screen reader mode. If any of these break, the section is broken.</p>
+  </div>
+
+  <div class="spec-block">
+    <div class="spec-label">Performance</div>
+    <p class="spec-title">Under 50KB. Under 200ms LCP.</p>
+    <p class="spec-body">The section ships in the initial HTML. No image. No font beyond what the page already loads. LCP target: <code>≤ 200ms</code> on 4G. CLS: <code>0</code>. The Timeline is not the hero. The Timeline is the proof. It must load as fast as the hero, or faster.</p>
+  </div>
+
+</div>
+
+<!-- ============================== ENDING ============================== -->
+<div class="ending">
+  <div class="ending-top">
+    <span>VELTRA</span>
+    <span>SPEC · 002 · v1.0</span>
+  </div>
+
+  <div class="ending-center">
+    <p class="ending-quote">"The clinic does not<br>need a dashboard.<br>It needs a witness."</p>
+    <div class="ending-rule"></div>
+    <p class="ending-attr">— A Day With Veltra · Closing Note</p>
+  </div>
+
+  <div class="ending-bottom">
+    <span>For Engineering · Internal</span>
+    <span>Build → Ship → Iterate</span>
+  </div>
+</div>
+
+</body>
+</html>
