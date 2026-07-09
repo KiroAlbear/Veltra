@@ -346,15 +346,15 @@ export default function Home() {
 
   return (
     <ErrorBoundary>
-      <div className="min-h-screen flex flex-col bg-background text-foreground">
+      <div className="h-screen overflow-hidden flex flex-col bg-background text-foreground">
         <DemoBanner />
 
-        <div className="flex flex-1 min-h-0">
+        <div className="flex flex-1 min-h-0 overflow-hidden">
           <Sidebar onNotificationsOpen={() => setNotifOpen(true)} />
 
           <main className="flex-1 min-w-0 overflow-x-hidden flex flex-col">
             <TopBar onNotificationsOpen={() => setNotifOpen(true)} />
-            <div className="flex-1 min-h-0">
+            <div className="flex-1 min-h-0 overflow-y-auto veltra-scrollbar">
               <AnimatePresence mode="wait">
               <motion.div
                 key={activeView}

@@ -197,7 +197,7 @@ export function Sidebar({ onNotificationsOpen }: { onNotificationsOpen?: () => v
         )}
 
         {/* Desktop sidebar */}
-        <aside className="hidden md:flex md:w-64 md:flex-col md:border-r md:border-border/40 md:bg-sidebar/50 md:backdrop-blur-xl sticky top-0 h-screen overflow-y-auto">
+        <aside className="hidden md:flex md:w-64 md:flex-shrink-0 md:flex-col md:border-r md:border-border/40 md:bg-sidebar/50 md:backdrop-blur-xl h-full min-h-0 overflow-hidden">
           {/* Brand row */}
           <div className="flex h-14 items-center gap-2 border-b border-border/40 px-4">
             <button onClick={() => handleNav("brief")} className="flex items-center gap-2 flex-1 min-w-0 cursor-pointer" aria-label="Back to home">
