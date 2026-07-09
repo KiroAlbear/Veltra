@@ -240,8 +240,8 @@ export function TimelineScreen() {
             </div>
 
             {/* Primary action — Start Visit (largest button, top of header) */}
-            <div className="relative mb-5">
-              <Button
+            {/* <div className="relative mb-5"> */}
+              {/* <Button
                 onClick={() => {
                   addPatientNote(patient.id, `New visit started — ${new Date().toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit" })}`);
                   setRxOpen(true);
@@ -251,8 +251,8 @@ export function TimelineScreen() {
               >
                 <Stethoscope className="mr-2 h-4 w-4" />
                 Start Visit
-              </Button>
-            </div>
+              </Button> */}
+            {/* </div> */}
 
             {/* Action bar — 3 groups separated by Dividers */}
             <div className="relative pt-4 border-t border-border/40">
