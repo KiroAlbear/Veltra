@@ -134,7 +134,6 @@ class OcrService {
   private async extractWithTesseract(input: OcrInput, start: number): Promise<OcrResult> {
     try {
       // Dynamic import — fails if tesseract.js not installed
-      // @ts-expect-error — optional dependency, loaded dynamically
       const Tesseract = await import("tesseract.js").catch(() => null);
       if (!Tesseract) throw new Error("tesseract.js not installed");
 
