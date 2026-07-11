@@ -1287,16 +1287,16 @@ function PricingSection({ onEnter }: { onEnter: (uid?: string) => void }) {
   const [billing, setBilling] = useState<"monthly" | "annual">("monthly");
 
   return (
-    <section id="pricing" className="py-24 sm:py-32 border-t border-[#E5E3DE] bg-[#FAF8F4] scroll-mt-20">
+    <section id="pricing" className="py-24 sm:py-32 border-t border-border/20 bg-background scroll-mt-20">
       <div className="mx-auto max-w-5xl px-6">
         <FadeIn>
           <p className="text-micro text-veltra-emerald font-medium uppercase tracking-wider mb-4 text-center">
             Pricing
           </p>
-          <h2 className="text-[2rem] sm:text-[3rem] leading-[1.05] tracking-[-0.035em] text-[#1A1F2E] font-semibold text-center max-w-3xl mx-auto">
-            <span className="text-editorial-italic text-[#6B7280]">Simple.</span> Honest.
+          <h2 className="text-[2rem] sm:text-[3rem] leading-[1.05] tracking-[-0.035em] text-foreground font-semibold text-center max-w-3xl mx-auto">
+            <span className="text-editorial-italic text-muted-foreground">Simple.</span> Honest.
           </h2>
-          <p className="text-body text-[#5B6772] mt-6 max-w-xl mx-auto text-center leading-relaxed">
+          <p className="text-body text-muted-foreground mt-6 max-w-xl mx-auto text-center leading-relaxed">
             One price per clinic. Unlimited patients, visits, and staff. No per-seat games. No hidden fees.
           </p>
         </FadeIn>
@@ -1306,13 +1306,13 @@ function PricingSection({ onEnter }: { onEnter: (uid?: string) => void }) {
           <div className="flex items-center justify-center gap-2 mt-10">
             <button
               onClick={() => setBilling("monthly")}
-              className={cn("px-3 py-1.5 rounded-md text-caption font-medium veltra-transition", billing === "monthly" ? "bg-[#1A1F2E] text-white" : "text-[#6B7280] hover:text-[#1A1F2E]")}
+              className={cn("px-3 py-1.5 rounded-md text-caption font-medium veltra-transition", billing === "monthly" ? "bg-foreground text-background" : "text-muted-foreground hover:text-foreground")}
             >
               Monthly
             </button>
             <button
               onClick={() => setBilling("annual")}
-              className={cn("px-3 py-1.5 rounded-md text-caption font-medium veltra-transition", billing === "annual" ? "bg-[#1A1F2E] text-white" : "text-[#6B7280] hover:text-[#1A1F2E]")}
+              className={cn("px-3 py-1.5 rounded-md text-caption font-medium veltra-transition", billing === "annual" ? "bg-foreground text-background" : "text-muted-foreground hover:text-foreground")}
             >
               Annual
               <span className="ml-1.5 text-micro text-veltra-emerald normal-case tracking-normal">2 months free</span>
@@ -1329,7 +1329,7 @@ function PricingSection({ onEnter }: { onEnter: (uid?: string) => void }) {
         </StaggerGroup>
 
         <FadeIn delay={0.3}>
-          <p className="text-center mt-10 text-micro text-[#6B7280] normal-case tracking-normal">
+          <p className="text-center mt-10 text-micro text-muted-foreground normal-case tracking-normal">
             Founding Partner program · first 10 clinics · $699/month locked for 3 years ·{" "}
             <a href="mailto:sales@veltrahealth.co?subject=Founding%20Partner%20Application" className="text-veltra-emerald hover:underline">
               Apply now →
@@ -1350,32 +1350,32 @@ function PricingCard({ tier, billing, onEnter }: { tier: TierConfig; billing: "m
 
   return (
     <div className={cn(
-      "rounded-2xl p-6 border h-full flex flex-col veltra-transition bg-white/95 text-[#1A1F2E]",
-      isPlatform ? "veltra-shadow-xl border-veltra-emerald/30" : "border-[#E5E3DE]"
+      "rounded-2xl p-6 border h-full flex flex-col veltra-transition bg-card/80 text-card-foreground backdrop-blur-sm",
+      isPlatform ? "veltra-shadow-lg border-veltra-emerald/30" : "border-border/30"
     )}>
       <div className="flex items-baseline justify-between mb-1">
-        <span className="text-body font-semibold text-[#1A1F2E]">{tier.name}</span>
+        <span className="text-body font-semibold text-foreground">{tier.name}</span>
         {isPlatform && (
           <span className="text-micro px-1.5 py-0 rounded bg-veltra-emerald/15 text-veltra-emerald normal-case tracking-normal font-medium">
             Most popular
           </span>
         )}
       </div>
-      <p className="text-micro text-[#5B6772] normal-case tracking-normal mb-5">{tier.tagline}</p>
+      <p className="text-micro text-muted-foreground normal-case tracking-normal mb-5">{tier.tagline}</p>
 
       <div className="mb-5">
         {price ? (
           <>
-            <span className="text-[2.5rem] font-bold text-[#1A1F2E] tabular">${price}</span>
-            <span className="text-caption text-[#5B6772]">/mo</span>
+            <span className="text-[2.5rem] font-bold text-foreground tabular">${price}</span>
+            <span className="text-caption text-muted-foreground">/mo</span>
             {billing === "annual" && (
               <p className="text-micro text-veltra-emerald normal-case tracking-normal mt-1">Billed annually</p>
             )}
           </>
         ) : (
           <>
-            <span className="text-[2rem] font-semibold text-[#1A1F2E]">Custom</span>
-            <p className="text-micro text-[#5B6772] normal-case tracking-normal mt-1">For hospital networks</p>
+            <span className="text-[2rem] font-semibold text-foreground">Custom</span>
+            <p className="text-micro text-muted-foreground normal-case tracking-normal mt-1">For hospital networks</p>
           </>
         )}
       </div>
@@ -1384,7 +1384,7 @@ function PricingCard({ tier, billing, onEnter }: { tier: TierConfig; billing: "m
         {features.map((f) => (
           <li key={f} className="flex items-start gap-2">
             <Check className="h-3.5 w-3.5 text-veltra-emerald flex-shrink-0 mt-0.5" />
-            <span className="text-caption text-[#1A1F2E] leading-snug">{f}</span>
+            <span className="text-caption text-foreground leading-snug">{f}</span>
           </li>
         ))}
       </ul>
@@ -1400,7 +1400,7 @@ function PricingCard({ tier, billing, onEnter }: { tier: TierConfig; billing: "m
       ) : (
         <a
           href="mailto:sales@veltrahealth.co?subject=Enterprise%20inquiry"
-          className="w-full h-10 inline-flex items-center justify-center rounded-md bg-[#1A1F2E]/[0.06] hover:bg-[#1A1F2E]/[0.1] text-[#1A1F2E] text-caption font-medium veltra-transition"
+          className="w-full h-10 inline-flex items-center justify-center rounded-md bg-foreground/[0.06] hover:bg-foreground/[0.1] text-foreground text-caption font-medium veltra-transition"
         >
           Talk to sales
           <ArrowRight className="ml-1.5 h-3 w-3" />
