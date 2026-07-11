@@ -75,6 +75,8 @@ const PRIMARY_NAV: NavItem[] = [
   { id: "settings",     label: "Settings",      icon: SettingsIcon,  shortcut: "5", tip: "Your account, preferences, location, billing." },
 ];
 
+
+
 export function Sidebar({ onNotificationsOpen }: { onNotificationsOpen?: () => void }) {
   const activeView = useVeltra((s) => s.activeView);
   const setView = useVeltra((s) => s.setView);
