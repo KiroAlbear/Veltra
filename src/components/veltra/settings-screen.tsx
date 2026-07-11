@@ -5,7 +5,6 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { Settings as SettingsIcon, Shield, User, LogOut, Check, X, RotateCcw } from "lucide-react";
-import { ThemeToggle } from "./theme-toggle";
 import { FadeIn } from "./motion";
 import { useToast } from "@/hooks/use-toast";
 
@@ -114,22 +113,8 @@ export function SettingsScreen() {
           </Card>
         </FadeIn>
 
-        {/* Preferences */}
-        <FadeIn delay={0.2}>
-          <Card className="p-6 veltra-shadow border-0 bg-card/50 backdrop-blur-sm mb-6">
-            <h3 className="text-title text-foreground mb-5">Preferences</h3>
-            <div className="flex items-center justify-between py-3 border-b border-border/40 last:border-0">
-              <div>
-                <p className="text-body font-medium text-foreground">Theme</p>
-                <p className="text-caption text-muted-foreground mt-0.5">Switch between dark and light mode</p>
-              </div>
-              <ThemeToggle />
-            </div>
-          </Card>
-        </FadeIn>
-
         {/* Danger zone */}
-        <FadeIn delay={0.25}>
+        <FadeIn delay={0.2}>
           <Card className="p-6 veltra-shadow border-0 bg-card/50 backdrop-blur-sm">
             <h3 className="text-title text-foreground mb-5">Session</h3>
             <div className="flex flex-col sm:flex-row gap-2">
