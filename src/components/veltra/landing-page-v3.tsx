@@ -949,7 +949,7 @@ function SearchCommandSection() {
               </div>
 
               {/* Results */}
-              <div className="max-h-72 overflow-y-auto veltra-scrollbar">
+              <div className="h-48 overflow-y-auto veltra-scrollbar">
                 {query && currentResults.length > 0 ? (
                   currentResults.map((r, i) => (
                     <motion.div
@@ -967,7 +967,7 @@ function SearchCommandSection() {
                     </motion.div>
                   ))
                 ) : (
-                  <div className="px-4 py-12 text-center">
+                  <div className="h-full px-4 flex flex-col items-center justify-center text-center">
                     <Command className="h-6 w-6 text-muted-foreground/30 mx-auto mb-2" />
                     <p className="text-caption text-muted-foreground/60">Type to search across everything…</p>
                   </div>
