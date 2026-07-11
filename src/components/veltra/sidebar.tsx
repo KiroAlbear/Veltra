@@ -79,6 +79,7 @@ export function Sidebar({ onNotificationsOpen }: { onNotificationsOpen?: () => v
   const setView = useVeltra((s) => s.setView);
   const currentUser = useVeltra((s) => s.currentUser);
   const logout = useVeltra((s) => s.logout);
+  const mode = useVeltra((s) => s.mode);
   const notifications = useVeltra((s) => s.notifications);
   const activeTier = useVeltra((s) => s.activeTier);
   const unread = notifications.filter((n) => !n.read).length;
@@ -87,6 +88,7 @@ export function Sidebar({ onNotificationsOpen }: { onNotificationsOpen?: () => v
   const { toast } = useToast();
 
   const tierScreens = activeTier?.screensEnabled || [];
+  const hideMobileSidebar = mode === "demo";
 
   const handleNav = (id: NavItem["id"]) => {
     setView(id);
@@ -141,6 +143,7 @@ export function Sidebar({ onNotificationsOpen }: { onNotificationsOpen?: () => v
     <TooltipProvider delayDuration={400}>
       <>
         {/* Mobile top bar */}
+        {!hideMobileSidebar && (
         <div className="md:hidden sticky top-10 z-30 flex h-12 items-center justify-between border-b border-border/40 bg-background/80 backdrop-blur-xl px-4">
           <Button size="sm" variant="ghost" onClick={() => setMobileOpen(true)} className="h-8 w-8 p-0" aria-label="Open navigation">
             <Menu className="h-4 w-4" />
@@ -167,9 +170,10 @@ export function Sidebar({ onNotificationsOpen }: { onNotificationsOpen?: () => v
             </button>
           </div>
         </div>
+        )}
 
         {/* Mobile drawer */}
-        {mobileOpen && (
+        {!hideMobileSidebar && mobileOpen && (
           <div className="md:hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-sm" onClick={() => setMobileOpen(false)}>
             <div className="absolute left-0 top-0 h-full w-72 bg-card/95 backdrop-blur-xl shadow-2xl flex flex-col" onClick={(e) => e.stopPropagation()}>
               <div className="flex h-14 items-center justify-between border-b border-border/40 px-5">
