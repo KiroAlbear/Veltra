@@ -32,7 +32,7 @@ import {
 } from "lucide-react";
 import { useMemo, useState } from "react";
 import { formatRelativeTime, formatDate } from "@/lib/veltra-store";
-import { FadeIn, StaggerGroup, HoverLift, CountUp } from "./motion";
+import { FadeIn, HoverLift, CountUp } from "./motion";
 import { useToast } from "@/hooks/use-toast";
 
 const CHANNEL_ICON = {
@@ -427,7 +427,7 @@ export function PatientsScreen() {
             </Card>
           </FadeIn>
         ) : (
-          <StaggerGroup className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4" stagger={0.05}>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {filtered.map((p) => (
               <HoverLift key={p.id} intensity={3}>
                   <Card
@@ -517,7 +517,7 @@ export function PatientsScreen() {
                   </Card>
               </HoverLift>
             ))}
-          </StaggerGroup>
+          </div>
         )}
       </div>
     </div>
