@@ -35,7 +35,7 @@ import {
   Check,
   Headphones,
 } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Tooltip,
   TooltipContent,
@@ -52,6 +52,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { SupportChat } from "./support-chat";
 import { useToast } from "@/hooks/use-toast";
+import { AnimatePresence, motion } from "framer-motion";
 
 type NavItem = {
   id:
@@ -94,6 +95,13 @@ export function Sidebar({ onNotificationsOpen }: { onNotificationsOpen?: () => v
     setView(id);
     setMobileOpen(false);
   };
+
+  useEffect(() => {
+    const openMobileSidebar = () => setMobileOpen(true);
+
+    window.addEventListener("veltra:open-sidebar", openMobileSidebar);
+    return () => window.removeEventListener("veltra:open-sidebar", openMobileSidebar);
+  }, []);
 
   // Filter primary nav by tier+role. Settings + Brief are always available.
   const visibleNav = PRIMARY_NAV.filter((item) =>
@@ -173,32 +181,109 @@ export function Sidebar({ onNotificationsOpen }: { onNotificationsOpen?: () => v
         )}
 
         {/* Mobile drawer */}
-        {!hideMobileSidebar && mobileOpen && (
-          <div className="md:hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-sm" onClick={() => setMobileOpen(false)}>
-            <div className="absolute left-0 top-0 h-full w-72 bg-card/95 backdrop-blur-xl shadow-2xl flex flex-col" onClick={(e) => e.stopPropagation()}>
-              <div className="flex h-14 items-center justify-between border-b border-border/40 px-5">
-                <div className="flex items-center gap-2.5">
-                  <img src="/logo-symbol.png" alt="Veltra" className="object-cover h-7 w-7 rounded-lg veltra-shadow" />
-                  <span className="text-body font-semibold text-foreground">Veltra</span>
-                </div>
+        <AnimatePresence>
+        {mobileOpen && (
+          <motion.div
+            className="md:hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-sm"
+            onClick={() => setMobileOpen(false)}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <motion.div
+              className="absolute left-0 top-0 h-full w-72 bg-card/95 backdrop-blur-xl shadow-2xl flex flex-col"
+              onClick={(e) => e.stopPropagation()}
+              initial={{ x: "-100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "-100%" }}
+              transition={{ type: "spring", stiffness: 420, damping: 38, mass: 0.8 }}
+            >
+              <div className="flex h-14 items-center gap-2 border-b border-border/40 px-4">
+                <button onClick={() => handleNav("brief")} className="flex items-center gap-2 flex-1 min-w-0 cursor-pointer" aria-label="Back to home">
+                  <img src="/logo-symbol.png" alt="Veltra" className="object-cover h-7 w-7 rounded-lg veltra-shadow flex-shrink-0" />
+                  <span className="text-body font-semibold tracking-tight text-foreground truncate">Veltra</span>
+                </button>
+                <LocationSwitcher />
+                <TierBadge />
                 <Button size="sm" variant="ghost" onClick={() => setMobileOpen(false)} className="h-8 w-8 p-0" aria-label="Close menu">
                   <X className="h-4 w-4" />
                 </Button>
               </div>
-              <nav className="flex-1 p-3 overflow-y-auto veltra-scrollbar space-y-0.5">
-                {visibleNav.map((item) => renderNavItem(item))}
+
+              <div className="px-3 pt-3 pb-1">
+                <SpecialtySwitcher />
+              </div>
+
+              <nav className="flex-1 p-3 overflow-y-auto veltra-scrollbar">
+                <p className="text-micro text-muted-foreground/60 px-3 mb-2 mt-1">Workspace</p>
+                <div className="space-y-0.5">
+                  {visibleNav.map((item) => renderNavItem(item))}
+                </div>
                 <button
-                  onClick={() => window.dispatchEvent(new KeyboardEvent("keydown", { key: "k", metaKey: true }))}
-                  className="w-full flex items-center gap-3 rounded-lg px-3 py-2.5 text-body text-muted-foreground hover:bg-foreground/[0.05] hover:text-foreground veltra-transition mt-3"
+                  onClick={() => {
+                    setMobileOpen(false);
+                    window.dispatchEvent(new KeyboardEvent("keydown", { key: "k", metaKey: true }));
+                  }}
+                  className="w-full flex items-center gap-3 rounded-lg px-3 py-2 text-body text-muted-foreground hover:bg-foreground/[0.05] hover:text-foreground veltra-transition mt-3"
                 >
                   <Command className="h-4 w-4" />
                   <span className="flex-1 text-left">Search & jump</span>
                   <kbd className="text-micro text-muted-foreground/40 normal-case tracking-normal">⌘K</kbd>
                 </button>
               </nav>
-            </div>
-          </div>
+
+              <div className="border-t border-border/40 p-2">
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <button className="mt-1.5 w-full flex items-center gap-2 px-2.5 py-2 rounded-lg bg-foreground/[0.04] hover:bg-foreground/[0.07] veltra-transition">
+                      <div className={cn("h-7 w-7 rounded-full flex items-center justify-center text-micro font-semibold flex-shrink-0", currentUser?.avatarColor || "bg-foreground/20")}>
+                        {currentUser?.initials || "?"}
+                      </div>
+                      <div className="flex-1 min-w-0 text-left">
+                        <p className="text-caption font-medium text-foreground truncate leading-tight">{currentUser?.name || "Not signed in"}</p>
+                        <p className="text-micro text-muted-foreground normal-case tracking-normal truncate leading-tight mt-0.5 capitalize">{currentUser?.role || "—"}</p>
+                      </div>
+                    </button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end" side="top" className="w-56 veltra-shadow-lg bg-card/95 backdrop-blur-xl border-border/40 mb-2">
+                    <DropdownMenuLabel className="text-micro text-muted-foreground">{currentUser?.email}</DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem onClick={() => handleNav("settings")} className="text-body cursor-pointer">
+                      <SettingsIcon className="mr-2 h-3.5 w-3.5" /> Settings
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => { setMobileOpen(false); setSupportChatOpen(true); }} className="text-body cursor-pointer">
+                      <Headphones className="mr-2 h-3.5 w-3.5" /> Support
+                      <span className="ml-auto text-micro text-veltra-emerald normal-case tracking-normal flex items-center gap-1">
+                        <span className="veltra-live-dot" /> Live
+                      </span>
+                    </DropdownMenuItem>
+                    {canAccessWithTier(currentUser?.role, "security", tierScreens) && (
+                      <DropdownMenuItem onClick={() => { setMobileOpen(false); setView("security" as any); }} className="text-body cursor-pointer">
+                        <Shield className="mr-2 h-3.5 w-3.5" /> Security
+                      </DropdownMenuItem>
+                    )}
+                    {canAccessWithTier(currentUser?.role, "users", tierScreens) && (
+                      <DropdownMenuItem onClick={() => { setMobileOpen(false); setView("users" as any); }} className="text-body cursor-pointer">
+                        <Users className="mr-2 h-3.5 w-3.5" /> Users
+                      </DropdownMenuItem>
+                    )}
+                    {canAccessWithTier(currentUser?.role, "audit", tierScreens) && (
+                      <DropdownMenuItem onClick={() => { setMobileOpen(false); setView("audit" as any); }} className="text-body cursor-pointer">
+                        <Sparkles className="mr-2 h-3.5 w-3.5" /> Audit log
+                      </DropdownMenuItem>
+                    )}
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem onClick={() => { setMobileOpen(false); logout(); toast({ title: "Signed out", description: "You've been signed out." }); }} className="text-body cursor-pointer text-red-400 focus:text-red-400 focus:bg-red-500/10">
+                      <LogOut className="mr-2 h-3.5 w-3.5" /> Sign out
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </div>
+            </motion.div>
+          </motion.div>
         )}
+        </AnimatePresence>
 
         {/* Desktop sidebar */}
         <aside className="hidden md:flex md:w-64 md:flex-shrink-0 md:flex-col md:border-r md:border-border/40 md:bg-sidebar/50 md:backdrop-blur-xl h-full min-h-0 overflow-hidden">

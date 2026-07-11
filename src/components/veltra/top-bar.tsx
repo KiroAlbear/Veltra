@@ -17,7 +17,7 @@
  * Design rule: Apple's macOS menu bar is always in the same place, always thin.
  */
 import { useVeltra } from "@/lib/veltra-store";
-import { Bell, Calendar, Search } from "lucide-react";
+import { Bell, Calendar, Menu, Search } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import {
@@ -130,6 +130,21 @@ export function TopBar({ onNotificationsOpen }: { onNotificationsOpen: () => voi
               {unread > 0 ? `${unread} unread notification${unread === 1 ? "" : "s"}` : "You're all caught up"}
               <span className="text-micro text-background/60 ml-1.5 normal-case tracking-normal">(N)</span>
             </p>
+          </TooltipContent>
+        </Tooltip>
+
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <button
+              onClick={() => window.dispatchEvent(new Event("veltra:open-sidebar"))}
+              className="md:hidden h-8 w-8 flex items-center justify-center rounded-md hover:bg-foreground/[0.05] veltra-transition"
+              aria-label="Open navigation"
+            >
+              <Menu className="h-4 w-4 text-muted-foreground" />
+            </button>
+          </TooltipTrigger>
+          <TooltipContent side="bottom" className="bg-foreground text-background border-border/40">
+            <p className="text-caption">Open navigation</p>
           </TooltipContent>
         </Tooltip>
       </div>
